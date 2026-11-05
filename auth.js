@@ -2,9 +2,10 @@
 (() => {
   const LS = {
     get(k, d) { try { const v = JSON.parse(localStorage.getItem(k)); return v === null ? d : v; } catch (e) { return d; } },
-    set(k, v) { try { localStorage.setItem(k, JSON.stringify(v)); } catch (e) {} }
+    set(k, v) { try { localStorage.setItem(k, JSON.stringify(v)); } catch (e) { } }
   };
   const $a = s => document.querySelector(s);
+  const t = (k, v) => I18N.t(k, v);
   const users = () => LS.get("sa7ni_users", []);
 
   // Mot de passe : jamais stocké en clair (PBKDF2 ; hash simple de secours si le navigateur n'a pas crypto.subtle)
@@ -27,7 +28,7 @@
     window.APP_USER = { name: me.name, email: me.email };
     document.body.classList.remove("guest");
     const s = document.createElement("script");
-    s.src = "script.js?v=15";
+    s.src = "script.js?v=16";
     document.body.appendChild(s);
     return;
   }
@@ -36,11 +37,13 @@
   // ----- Formulaire -----
   let mode = "login";
   const err = m => { $a("#aErr").textContent = m || ""; };
-  document.querySelectorAll(".tab").forEach(t => t.onclick = () => {
-    mode = t.dataset.mode;
-    document.querySelectorAll(".tab").forEach(x => x.classList.toggle("sel", x === t));
+  I18N.onChange(() => err(""));
+  document.querySelectorAll(".tab").forEach(tb => tb.onclick = () => {
+    mode = tb.dataset.mode;
+    document.querySelectorAll(".tab").forEach(x => x.classList.toggle("sel", x === tb));
     $a("#nameRow").hidden = mode !== "signup";
-    $a("#aGo").textContent = mode === "signup" ? "Create account" : "Log in";
+    $a("#aGo").dataset.i = mode === "signup" ? "auth.create" : "auth.login";
+    I18N.apply();
     $a("#aPw").autocomplete = mode === "signup" ? "new-password" : "current-password";
     err("");
   });
@@ -51,12 +54,12 @@
     const name = $a("#aName").value.replace(/[<>&"]/g, "").trim().slice(0, 30);
     const email = $a("#aEmail").value.trim().toLowerCase();
     const pw = $a("#aPw").value;
-    if (!/^\S+@\S+\.\S+$/.test(email)) return err("Enter a valid email.");
-    if (pw.length < 6) return err("Password must be at least 6 characters.");
+    if (!/^\S+@\S+\.\S+$/.test(email)) return err(t("a.email"));
+    if (pw.length < 6) return err(t("a.pw"));
     const list = users();
     if (mode === "signup") {
-      if (!name) return err("Enter your name.");
-      if (list.some(u => u.email === email)) return err("This email already has an account. Log in instead.");
+      if (!name) return err(t("a.name"));
+      if (list.some(u => u.email === email)) return err(t("a.exists"));
       const salt = Math.random().toString(36).slice(2) + Date.now().toString(36);
       const hash = await hashPw(pw, salt);
       // Le tout premier compte récupère les recettes/favoris/notes déjà enregistrés avant l'ajout du login
@@ -68,7 +71,7 @@
       LS.set("sa7ni_users", list);
     } else {
       const u = list.find(x => x.email === email);
-      if (!u || u.hash !== await hashPw(pw, u.salt)) return err("Wrong email or password.");
+      if (!u || u.hash !== await hashPw(pw, u.salt)) return err(t("a.wrong"));
     }
     LS.set("sa7ni_session", email);
     location.reload();

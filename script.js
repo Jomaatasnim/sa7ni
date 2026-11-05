@@ -8,6 +8,8 @@ addEventListener("error", e => {
 // Utilisateur connecté (défini par auth.js) ; chaque compte a ses propres données
 const ME = window.APP_USER;
 const K = k => "sa7ni_" + k + ":" + ME.email;
+const t = (k, v) => I18N.t(k, v);                       // traduction des textes de l'interface
+const SUPPORT_EMAIL = "tasnimjomaa4@gmail.com";     // ← badlou b email 7a9i9i mte3ek (aussi utilisé par l'API de traduction)
 
 // ===== Admin =====
 // Les comptes dont l'email est dans cette liste peuvent modifier et supprimer N'IMPORTE QUELLE recette.
@@ -25,18 +27,18 @@ const empty = msg => `<p class="empty">${msg}</p>`;
 const esc = s => String(s).replace(/[&<>"']/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
 
 const R = [
-  ["Kosksi bedjej", "Khalil Rouis", 4.5, 21, "images/kosksi-bedjej.jpg", "Lunch"], ["Cheesecake", "Tasnim Jomaa", 4.9, 37, "images/cheesecake.jpg", "Desserts"],
-  ["Orange Juice", "Nikola Tesla", 4.7, 19, "images/3asir.jpg", "Drinks"], ["Ma9rouna bel bagri", "Dali Mohamed", 4.5, 21, "images/ma9rouna-bagri.jpg", "Dinner"],
-  ["Mar9et loubya", "Mariem Taha", 4.8, 32, "images/loubya.jpg", "Breakfast"], ["Brik", "Arwa Saad", 4.8, 32, "images/brik.jpg", "Dinner"],
-  ["Lablebi", "Sami Ben Ali", 4.6, 25, "images/lablebi.jpg", "Breakfast"], ["Chakchouka", "Rim Gharbi", 4.7, 28, "images/chakchouka.jpg", "Breakfast"],
+  ["Kosksi bedjej", "Rania jamel", 4.5, 21, "images/kosksi-bedjej.jpg", "Dinner"], ["Cheesecake", "Tasnim Jomaa", 4.9, 37, "images/cheesecake.jpg", "Desserts"],
+  ["Orange Juice", "Amira dhaoui", 4.7, 19, "images/3asir.jpg", "Drinks"], ["Ma9rouna bel bagri", "Dali Mohamed", 4.5, 21, "images/ma9rouna-bagri.jpg", "Dinner"],
+  ["Mar9et loubya", "Mariem Taha", 4.8, 32, "images/loubya.jpg", "Lunch"], ["Brik", "Arwa Saad", 4.8, 32, "images/brik.jpg", "Lunch"],
+  ["Lablebi", "Sami Ben Ali", 4.6, 25, "images/lablebi.jpg", "Lunch"], ["Chakchouka", "Rim Gharbi", 4.7, 28, "images/chakchouka.jpg", "Dinner"],
   ["Slata machwiya", "Hela Mansour", 4.4, 17, "images/slata-machwiya.jpg", "Lunch"], ["Ma9rou4", "Youssef Jlassi", 4.9, 41, "images/ma9rou4.jpg", "Desserts"],
-  ["Bambalouni", "Amira Trabelsi", 4.6, 23, "images/bambalouni.jpg", "Breakfast"], ["Thé aux pignons", "Oussama Dridi", 4.8, 30, "images/tey.jpg", "Drinks"],
-  ["Ojja Merguez", "Tasnim Jomaa", 0, 0, "images/ojja-merguez.jpg", "Dinner"],
-  ["Kosksi bel 3osben", "Tasnim Jomaa", 0, 0, "images/kosksi-3osben.jpg", "Lunch"],
-  ["Kosksi bel7am", "Tasnim Jomaa", 0, 0, "images/kosksibel7am.jpg", "Lunch"],
-  ["Roz jerbi", "Tasnim Jomaa", 0, 0, "images/roz-jerbi.jpg", "Lunch"],
-  ["Mlou5iya", "Tasnim Jomaa", 0, 0, "images/mloukhiya.jpg", "Lunch"],
-  ["Kammouniya", "Tasnim Jomaa", 0, 0, "images/kammouniya.jpg", "Dinner"]
+  ["Bambalouni", "Souha braik", 4.6, 23, "images/bambalouni.jpg", "Breakfast"], ["Thé aux pignons", "Oussama Dridi", 4.8, 30, "images/tey.jpg", "Drinks"],
+  ["Ojja Merguez", "Moez mohamed", 0, 0, "images/ojja-merguez.jpg", "Lunch"],
+  ["Kosksi bel 3osben", "Samia youssef", 0, 0, "images/kosksi-3osben.jpg", "Dinner"],
+  ["Kosksi bel7am", "Sana dridi", 0, 0, "images/kosksibel7am.jpg", "Dinner"],
+  ["Roz jerbi", "Tasnim Jomaa", 0, 0, "images/roz-jerbi.jpg", "Dinner"],
+  ["Mlou5iya", "Moufida bouzid", 0, 0, "images/mloukhiya.jpg", "Dinner"],
+  ["Kammouniya", "Rahma seyel", 0, 0, "images/kammouniya.jpg", "Lunch"]
 ];
 // D[i] = détails de R[i] : [temps, personnes, ingrédients, étapes]
 const D = [
@@ -66,6 +68,32 @@ const D = [
   ["—", "—", ["150 gr de mloukhia", "500 gr de viande de bœuf coupée en morceaux", "1 c. à café de concentré de tomate", "1 c. à café de harissa arbi", "2 feuilles de laurier", "1 oignon haché", "Ail", "Eau chaude", "1 c. à café de tabel", "Huile", "Paprika", "Sel"], ["Assaisonner la viande d'ail, de harissa arbi, feuilles de laurier, paprika, tabel, l'huile, mélanger et laisser mariner. Vous pouvez faire ceci la veille de votre mloukhia ce sera encore meilleur !", "Verser la poudre de mloukhia dans une marmite et la couvrir d'huile. Mélanger.", "Ajouter l'oignon, le concentré de tomate et les feuilles de laurier, faire revenir en mélangeant.", "Verser une louche d'eau chaude, remuer, reverser une autre louche, remuer et ce jusqu'à l'obtention d'une sauce pas trop liquide mais surtout pas crémeuse non plus, consistance d'une soupe légère : la sauce épaissira lors de la cuisson.", "Couvrir et laisser cuire 5 h minimum à feu doux en remuant de temps à autre et ajouter un peu d'eau si vous trouvez la préparation trop épaisse.", "Ajouter vos morceaux de viandes et le reste de la mixture.", "Quand la cuisson est terminée vous devez voir l'huile remonter à la surface.", "La mloukhia est cuite lorsqu'une couche d'huile remonte à la surface."]],
   ["—", "—", ["2 c. à soupe de tomate concassée", "Viande de bœuf coupée en cubes", "Foie et abats coupés en cubes", "Oignon", "1 c. à café d'ail haché", "1 c. à café de cumin", "Sel et poivre", "1 c. à café de curcuma", "2 poivrons verts", "1 c. à café de tabel", "1 c. à café de farine", "Huile", "1 poivron rouge séché", "Persil haché"], ["Faire revenir l'oignon et le poivron séché dans l'huile.", "Entre temps, assaisonner la viande et les abats de tabel, sel, poivre et curcuma.", "Mettre la viande et les abats dans la marmite avec un peu de farine et faire revenir.", "Incorporer les tomates concassées et laisser cuire.", "Après cuisson de la viande ajouter les poivrons et le cumin.", "Laisser sur le feu 5 minutes puis dresser dans un plat et parsemer de persil haché."]]
 ];
+
+// Titres des recettes du site dans les 3 langues : [en, fr, ar]
+const TITLES = {
+  "Kosksi bedjej": ["Chicken Couscous", "Couscous au poulet", "كسكسي بالدجاج"],
+  "Cheesecake": ["Cheesecake", "Cheesecake", "تشيز كيك"],
+  "Orange Juice": ["Orange Juice", "Jus d'orange", "عصير البرتقال"],
+  "Ma9rouna bel bagri": ["Pasta with Beef", "Pâtes à la viande de bœuf", "معكرونة باللحم البقري"],
+  "Mar9et loubya": ["White Bean Stew", "Ragoût de haricots blancs", "مرقة اللوبيا"],
+  "Brik": ["Brik", "Brik", "بريك"],
+  "Lablebi": ["Lablebi", "Lablebi", "لبلابي"],
+  "Chakchouka": ["Shakshuka", "Chakchouka", "شكشوكة"],
+  "Slata machwiya": ["Grilled Salad (Mechouia)", "Salade mechouia", "سلطة مشوية"],
+  "Ma9rou4": ["Makroudh", "Makroud", "مقروض"],
+  "Bambalouni": ["Bambalouni", "Bambalouni", "بمبلوني"],
+  "Thé aux pignons": ["Tea with Pine Nuts", "Thé aux pignons", "شاي بالصنوبر"],
+  "Ojja Merguez": ["Merguez Ojja", "Ojja merguez", "عجة بالمرقاز"],
+  "Kosksi bel 3osben": ["Couscous with Osban", "Couscous aux osbane", "كسكسي بالعصبان"],
+  "Kosksi bel7am": ["Lamb Couscous", "Couscous à l'agneau", "كسكسي باللحم"],
+  "Roz jerbi": ["Djerba Rice", "Riz djerbien", "رز جربي"],
+  "Mlou5iya": ["Mloukhiya", "Mloukhiya", "ملوخية"],
+  "Kammouniya": ["Kammouniya", "Kamounia", "كمونية"]
+};
+const LI = { en: 0, fr: 1, ar: 2 };
+// Titre affiché : traduit pour les recettes du site (sauf si l'admin l'a modifié), tel quel pour celles des utilisateurs
+const dispTitle = r => (r.key && r[0] === r.key && TITLES[r.key]) ? TITLES[r.key][LI[I18N.lang]] : r[0];
+
 // Recettes publiées par l'utilisateur : gardées dans le navigateur et rechargées au démarrage
 const BASE = R.length;
 R.forEach(r => { r.key = r[0]; });                  // identifiant stable des recettes de base
@@ -99,35 +127,36 @@ function recompute(i) {                              // moyenne = origine + ma n
   R[i][2] = Math.round((avg * n + mine) / (n + 1) * 10) / 10;
 }
 Object.keys(myRates).forEach(i => R[i] ? recompute(i) : delete myRates[i]);
-const rt = r => r[3] ? `${r[2]} · ${r[3]} review${r[3] > 1 ? "s" : ""}` : "New";
+const rt = r => r[3] ? `${r[2]} · ${r[3]} ${r[3] > 1 ? t("reviews") : t("review")}` : t("new");
 
 // Sécurité : tout texte venant de l'utilisateur passe par esc() ; l'image a un repli emoji si elle ne charge pas
 const pic = e => /^(data:image\/|images\/)/.test(e)
   ? `<img src="${esc(e)}" alt="" onerror="this.replaceWith('🍽️')">`
   : esc(e);
-const card = r => `<article class="card"><div class="thumb">${pic(r[4])}</div><h3>${esc(r[0])}</h3>
-  <p class="author">By ${esc(r[1])}</p><p class="rating"><i>★</i> ${rt(r)}</p>
-  <a href="#recipe/${R.indexOf(r)}" class="btn">Recipe</a></article>`;
-const mini = r => `<a href="#recipe/${R.indexOf(r)}" class="card m"><div class="thumb">${pic(r[4])}</div><h3>${esc(r[0])}</h3>
+const card = r => `<article class="card"><div class="thumb">${pic(r[4])}</div><h3>${esc(dispTitle(r))}</h3>
+  <p class="author">${esc(t("by"))} ${esc(r[1])}</p><p class="rating"><i>★</i> ${rt(r)}</p>
+  <a href="#recipe/${R.indexOf(r)}" class="btn">${esc(t("card.recipe"))}</a></article>`;
+const mini = r => `<a href="#recipe/${R.indexOf(r)}" class="card m"><div class="thumb">${pic(r[4])}</div><h3>${esc(dispTitle(r))}</h3>
   <p class="rating"><i>★</i> ${rt(r)}</p></a>`;
 const fill = (id, list, fn) => $(id).innerHTML = list.map(fn).join("");
 
 // Profile → My Recipes : seulement les recettes publiées par l'utilisateur
 const drawMine = () => {
   const mine = R.slice(BASE);
-  $("#mine").innerHTML = mine.length ? mine.map(mini).join("") : empty("You haven't published any recipe yet.");
+  $("#mine").innerHTML = mine.length ? mine.map(mini).join("") : empty(t("e.mine"));
   $("#recipesCount").textContent = mine.length;
 };
 drawMine();
 
 // Home : affiche les recettes (filtre par recherche + catégorie)
 let activeCat = "";                                  // catégorie choisie sur Home ("" = toutes)
-const catOf = chip => chip.textContent.trim().split(" ")[0];
+const catOf = chip => chip.dataset.cat;
+const catLabel = c => t("cat." + c).replace(/\s+\S+$/, "");   // nom de la catégorie sans l'emoji
 function drawPopular() {
   const v = $("#q").value.toLowerCase();
-  const list = R.filter(r => !r.hid && r[0].toLowerCase().includes(v) && (!activeCat || r[5] === activeCat));
-  $("#popTitle").textContent = activeCat || "Popular";
-  $("#popular").innerHTML = list.length ? list.map(card).join("") : empty("No recipes found.");
+  const list = R.filter(r => !r.hid && (r[0].toLowerCase().includes(v) || dispTitle(r).toLowerCase().includes(v)) && (!activeCat || r[5] === activeCat));
+  $("#popTitle").textContent = activeCat ? catLabel(activeCat) : t("popular");
+  $("#popular").innerHTML = list.length ? list.map(card).join("") : empty(t("e.none"));
 }
 $("#q").addEventListener("input", drawPopular);
 
@@ -137,15 +166,13 @@ const drawStars = () => $("#stars").innerHTML = [1, 2, 3, 4, 5].map(n =>
   `<button data-n="${n}">${n <= note ? "★" : "☆"}</button>`).join("");
 drawStars();
 function showRateMsg(i) {
-  $("#rateMsg").textContent = myRates[i]
-    ? `Thanks! You rated this recipe ${myRates[i]}/5. Tap the same star to remove your review.`
-    : "Tap a star to rate this recipe.";
+  $("#rateMsg").textContent = myRates[i] ? t("rate.thanks", { n: myRates[i] }) : t("rate.tap");
 }
 $("#stars").onclick = e => {
   const n = +e.target.dataset.n;
   if (!n) return;
   if (myRates[cur] === n) delete myRates[cur];
-  else { myRates[cur] = n; addNotif(`You rated “${R[cur][0]}” ${n}/5 ⭐`); }
+  else { myRates[cur] = n; addNotif(t("n.rated", { t: dispTitle(R[cur]), n })); }
   try { localStorage.setItem(K("rates"), JSON.stringify(myRates)); } catch (_) { }
   recompute(cur);
   note = myRates[cur] || 0; drawStars(); showRateMsg(cur);
@@ -159,29 +186,30 @@ favs = favs.filter(i => R[i]);
 function setFavBtn() {
   const on = favs.includes(cur);
   $("#favBtn").classList.toggle("on", on);
-  $("#favBtn").textContent = on ? "♥ In Favorites" : "Add To Favorites";
+  $("#favBtn").dataset.i = on ? "fav.in" : "fav.add";
+  $("#favBtn").textContent = t(on ? "fav.in" : "fav.add");
 }
 function drawFavs() {
   const v = $("#qf").value.toLowerCase();
   const vf = favs.filter(i => !R[i].hid);
-  const list = vf.map(i => R[i]).filter(r => r[0].toLowerCase().includes(v));
+  const list = vf.map(i => R[i]).filter(r => r[0].toLowerCase().includes(v) || dispTitle(r).toLowerCase().includes(v));
   $("#favs").innerHTML = list.length ? list.map(card).join("")
-    : empty(vf.length ? "No recipe matches your search." : "No favorites yet. Open a recipe and tap “Add To Favorites”.");
-  $("#saved").innerHTML = vf.length ? vf.map(i => mini(R[i])).join("") : empty("Nothing saved yet.");
+    : empty(vf.length ? t("e.nomatch") : t("e.nofav"));
+  $("#saved").innerHTML = vf.length ? vf.map(i => mini(R[i])).join("") : empty(t("e.nosaved"));
   $("#savedCount").textContent = vf.length;
   $("#reviewsCount").textContent = Object.keys(myRates).length;
 }
 $("#qf").addEventListener("input", drawFavs);
 $("#favBtn").onclick = () => {
-  if (!favs.includes(cur)) addNotif(`“${R[cur][0]}” added to your favorites ♥`);
+  if (!favs.includes(cur)) addNotif(t("n.fav", { t: dispTitle(R[cur]) }));
   favs = favs.includes(cur) ? favs.filter(i => i !== cur) : [...favs, cur];
   try { localStorage.setItem(K("favs"), JSON.stringify(favs)); } catch (e) { }
   setFavBtn(); drawFavs();
 };
 
 // Formulaire : ajouter lignes
-const line = (ph, v = "") => `<div class="line"><span>👨‍🍳</span><input placeholder="${ph}" value="${esc(v)}"></div>`;
-const holders = { ing: "e.g Chicken", step: "e.g prepare the ingredients" };
+const line = (ph, v = "") => `<div class="line"><span>👨‍🍳</span><input placeholder="${esc(ph)}" value="${esc(v)}"></div>`;
+const holders = { get ing() { return t("ph.ing"); }, get step() { return t("ph.step"); } };
 for (const k in holders) { $("#" + k).innerHTML = line(holders[k]).repeat(3); }
 document.querySelectorAll("[data-add]").forEach(b => b.onclick = () =>
   $("#" + b.dataset.add).insertAdjacentHTML("beforeend", line(holders[b.dataset.add])));
@@ -202,19 +230,114 @@ $("#dark").onclick = () => {
   try { localStorage.setItem("sa7ni_night", on ? "1" : "0"); } catch (e) { }
 };
 
+// ===== Traduction du contenu des recettes (ingrédients, étapes) =====
+// Service gratuit MyMemory, ligne par ligne ; les résultats sont gardés dans le navigateur (cache).
+let trCache = {};
+try { trCache = JSON.parse(localStorage.getItem("sa7ni_tr")) || {}; } catch (e) { }
+const saveTr = () => { try { localStorage.setItem("sa7ni_tr", JSON.stringify(trCache)); } catch (e) { trCache = {}; } };
+const trQueue = [], pending = new Set(), trBad = {};
+let trActive = 0, trFail = false, trTimer = 0;
+
+// Langue d'origine d'une recette (arabe / français / anglais), devinée à partir de son texte
+function srcLang(i) {
+  const txt = [...D[i][2], ...D[i][3]].join(" ");
+  if (/[\u0600-\u06FF]/.test(txt)) return "ar";
+  const FR = new Set(["de", "le", "la", "les", "des", "du", "et", "un", "une", "dans", "pour", "avec", "sur", "au", "aux", "en", "l", "d", "gr", "ajouter", "mettre", "faire", "sel", "huile"]);
+  const EN = new Set(["the", "and", "with", "of", "to", "a", "in", "until", "add", "mix", "into", "then", "on", "for", "grams", "teaspoon", "oil", "salt"]);
+  let fr = 0, en = 0;
+  (txt.toLowerCase().match(/[a-zà-ÿœ]+/g) || []).forEach(w => { if (FR.has(w)) fr++; if (EN.has(w)) en++; });
+  if (fr === en) return "Autodetect";
+  return fr > en ? "fr" : "en";
+}
+// Coupe un long texte en morceaux (l'API accepte ~500 octets par requête)
+function chunks(text) {
+  const enc = new TextEncoder(), parts = text.match(/[^.!?؟:;،]+[.!?؟:;،]*\s*/g) || [text], out = [];
+  let c = "";
+  for (const p of parts) {
+    if (enc.encode(c + p).length <= 450) c += p;
+    else {
+      if (c) out.push(c);
+      c = p;
+      while (enc.encode(c).length > 450) {
+        let cut = c.lastIndexOf(" ", 200); if (cut <= 0) cut = 200;
+        out.push(c.slice(0, cut)); c = c.slice(cut);
+      }
+    }
+  }
+  if (c.trim()) out.push(c);
+  return out;
+}
+const decode = s => { const ta = document.createElement("textarea"); ta.innerHTML = s; return ta.value; };
+async function fetchTr({ text, src, dst }) {
+  const res = [];
+  for (const part of chunks(text)) {
+    const url = "https://api.mymemory.translated.net/get?q=" + encodeURIComponent(part) +
+      "&langpair=" + src + "|" + dst + "&de=" + encodeURIComponent(SUPPORT_EMAIL);
+    const r = await fetch(url);
+    const j = await r.json();
+    const out = j && j.responseData && j.responseData.translatedText;
+    if (!out || +j.responseStatus !== 200 || /^MYMEMORY WARNING/i.test(out)) throw new Error("translate");
+    res.push(/^PLEASE SELECT TWO DISTINCT/i.test(out) ? part : decode(out));
+  }
+  return res.join(" ").trim();
+}
+function pump() {
+  while (trActive < 3 && trQueue.length) {
+    const j = trQueue.shift(); trActive++;
+    fetchTr(j)
+      .then(out => { if (out) trCache[j.k] = out; })
+      .catch(() => { trBad[j.k] = 1; trFail = true; })
+      .finally(() => {
+        trActive--; pending.delete(j.k);
+        if (!trQueue.length && !trActive) saveTr();
+        refreshTr(); pump();
+      });
+  }
+}
+function getTr(text, src, dst) {                     // renvoie la traduction si connue, sinon l'original (et la demande)
+  if (!text || src === dst) return text;
+  const k = src + ">" + dst + "|" + text;
+  if (trCache[k]) return trCache[k];
+  if (!pending.has(k) && !trBad[k]) { pending.add(k); trQueue.push({ text, src, dst, k }); pump(); }
+  return text;
+}
+function clearTrQueue() { trQueue.forEach(j => pending.delete(j.k)); trQueue.length = 0; trFail = false; }
+function refreshTr() {
+  clearTimeout(trTimer);
+  trTimer = setTimeout(() => { if ($("#recipe").classList.contains("show") && R[cur]) renderBody(cur); }, 150);
+}
+// Temps et nombre de personnes : traduits localement
+const localServ = s => String(s).replace(/(\d+)\s*(personnes?|persons?|people|أشخاص|اشخاص)/i, (_, n) => t("persons", { n }));
+const localTime = s => String(s)
+  .replace(/(\d+)\s*h\b/gi, (_, n) => n + " " + t("w.h"))
+  .replace(/\bmin\b/gi, t("w.min"))
+  .replace(/cuisson|cooking|طهي/gi, t("w.cook"))
+  .replace(/repos|\brest\b|راحة/gi, t("w.rest"));
+function renderBody(i) {
+  const d = D[i], L = I18N.lang, src = srcLang(i);
+  const x = s => esc(getTr(s, src, L));
+  $("#rTime").textContent = localTime(d[0]); $("#rServ").textContent = localServ(d[1]);
+  $("#rIng").innerHTML = d[2].map(s => `<li dir="auto">${x(s)}</li>`).join("");
+  $("#rSteps").innerHTML = d[3].map(s => {
+    const k = s.indexOf("|");
+    return `<li dir="auto">${k < 0 ? x(s) : `<b>${x(s.slice(0, k))}</b> ${x(s.slice(k + 1))}`}</li>`;
+  }).join("");
+  const busy = pending.size > 0 || trQueue.length > 0 || trActive > 0;
+  const m = $("#trMsg");
+  m.textContent = busy ? t("tr.busy") : trFail ? t("tr.fail") : "";
+  m.hidden = !(busy || trFail);
+}
+
 // Page recette : affiche les détails du plat choisi
 function showRecipe(i) {
   if (R[i] && R[i].hid) { location.hash = "#home"; return; }   // recette supprimée par l'admin
-  const r = R[i] || R[0], d = D[R[i] ? i : 0];
-  $("#rHero").innerHTML = pic(r[4]); $("#rTitle").textContent = r[0]; $("#rBy").textContent = r[1];
+  const idx = R[i] ? i : 0, r = R[idx];
+  if (idx !== cur || !$("#recipe").classList.contains("show")) clearTrQueue();
+  cur = idx;
+  $("#rHero").innerHTML = pic(r[4]); $("#rTitle").textContent = dispTitle(r); $("#rBy").textContent = r[1];
   $("#rRate").textContent = rt(r);
-  $("#rTime").textContent = d[0]; $("#rServ").textContent = d[1];
-  $("#rIng").innerHTML = d[2].map(x => `<li dir="auto">${esc(x)}</li>`).join("");
-  $("#rSteps").innerHTML = d[3].map(s => {
-    const k = s.indexOf("|");
-    return `<li dir="auto">${k < 0 ? esc(s) : `<b>${esc(s.slice(0, k))}</b> ${esc(s.slice(k + 1))}`}</li>`;
-  }).join("");
-  cur = R[i] ? i : 0; setFavBtn();
+  renderBody(cur);
+  setFavBtn();
   const canManage = cur >= BASE || isAdmin;         // ses propres recettes, ou toutes si admin
   $("#editBtn").hidden = !canManage; $("#delBtn").hidden = !canManage;
   note = myRates[cur] || 0; drawStars(); showRateMsg(cur);
@@ -224,8 +347,8 @@ function showRecipe(i) {
 function route() {
   const [id, arg] = (location.hash.slice(1) || "home").split("/");
   if (id !== "add" && editing !== null) resetAdd();
-  if (id === "recipe") showRecipe(+arg || 0);
   document.querySelectorAll(".view").forEach(v => v.classList.toggle("show", v.id === id));
+  if (id === "recipe") showRecipe(+arg || 0);
   document.querySelectorAll("[data-nav]").forEach(a => a.classList.toggle("active", a.dataset.nav === id));
   scrollTo(0, 0);
 }
@@ -237,6 +360,11 @@ const box = $("#add .photo");
 const fileIn = $("#add input[type=file]");
 const addChips = document.querySelectorAll("#add .chip");
 const err = msg => { $("#addErr").textContent = msg || ""; };
+function setAddMode(on) {                            // textes du formulaire : ajout ou modification
+  $("#add .add-title").dataset.i = on ? "add.edit" : "add.heading";
+  $("#add .publish").dataset.i = on ? "add.save" : "add.publish";
+  I18N.apply();
+}
 
 function showPhoto(src) {
   photo = src;
@@ -247,9 +375,9 @@ function showPhoto(src) {
 function readPhoto(f) {
   if (!f) return;
   err("");
-  if (f.type && !f.type.startsWith("image/")) { err("Choose an image file (JPG, PNG or WebP)."); return; }
+  if (f.type && !f.type.startsWith("image/")) { err(t("err.imgType")); return; }
   const rd = new FileReader();
-  rd.onerror = () => err("The image couldn't be read. Try another one.");
+  rd.onerror = () => err(t("err.imgRead"));
   rd.onload = () => {
     const raw = rd.result, im = new Image();
     im.onload = () => {                       // réduit les grandes photos à 1000px
@@ -262,7 +390,7 @@ function readPhoto(f) {
       let out; try { out = cv.toDataURL("image/jpeg", 0.85); } catch (e) { out = raw; }
       showPhoto(out);
     };
-    im.onerror = () => err("This image format isn't supported. Use JPG, PNG or WebP.");
+    im.onerror = () => err(t("err.imgFmt"));
     im.src = raw;
   };
   rd.readAsDataURL(f);
@@ -285,8 +413,7 @@ function resetAdd() {
   showPhoto("");
   for (const k in holders) $("#" + k).innerHTML = line(holders[k]).repeat(3);
   editing = null;
-  $("#add .add-title").textContent = "Add Recipe";
-  $("#add .publish").textContent = "Publish recipe";
+  setAddMode(false);
   err("");
 }
 $("#cancelAdd").addEventListener("click", () => {
@@ -296,12 +423,12 @@ $("#cancelAdd").addEventListener("click", () => {
 });
 
 $("#add .publish").addEventListener("click", () => {
-  const [t, time, serv] = document.querySelectorAll("#add .in");
-  const title = t.value.trim();
-  if (!title) { err("Enter a recipe title before publishing."); t.focus(); return; }
+  const [ti, time, serv] = document.querySelectorAll("#add .in");
+  const title = ti.value.trim();
+  if (!title) { err(t("err.title")); ti.focus(); return; }
   const vals = id => [...document.querySelectorAll(`#${id} input`)].map(i => i.value.trim()).filter(Boolean);
   const sel = document.querySelector("#add .chip.sel");
-  if (!sel) { err("Choose a category before publishing."); return; }
+  if (!sel) { err(t("err.cat")); return; }
   const tm = time.value.trim() || "—", sv = serv.value.trim() || "—", ing = vals("ing"), steps = vals("step");
   if (editing !== null) {                            // ----- enregistrer une modification -----
     const i = editing, rec = R[i];
@@ -313,7 +440,7 @@ $("#add .publish").addEventListener("click", () => {
     } else {                                         // recette du site (admin)
       adm.edits[rec.key] = { t: title, p: rec[4], c: rec[5], d: D[i] }; saveAdm();
     }
-    addNotif(`Recipe “${title}” updated ✏️`);
+    addNotif(t("n.upd", { t: title }));
     editing = null; resetAdd(); drawMine(); drawPopular(); drawFavs();
     location.hash = "#recipe/" + i;
     return;
@@ -324,31 +451,30 @@ $("#add .publish").addEventListener("click", () => {
   mineSaved.push({ r, d });
   try { localStorage.setItem(K("mine"), JSON.stringify(mineSaved)); } catch (e) { }
   drawMine();
-  addNotif(`Your recipe “${title}” is published 🎉`);
+  addNotif(t("n.pub", { t: title }));
   resetAdd();
   location.hash = "#recipe/" + (R.length - 1);
 });
 
 // ===== Notifications + Help & Support =====
-const SUPPORT_EMAIL = "tasnimjomaa4@gmail.com";     // ← badlou b email 7a9i9i mte3ek
 let notifs = [];
 try {
   const raw = localStorage.getItem(K("notifs"));
-  notifs = raw === null ? [{ t: `Welcome to SA7NI, ${ME.name} 👋 Publish your first recipe!`, d: Date.now(), r: 0 }] : JSON.parse(raw) || [];
+  notifs = raw === null ? [{ t: t("n.welcome", { name: ME.name }), d: Date.now(), r: 0 }] : JSON.parse(raw) || [];
 } catch (e) { }
 const saveN = () => { try { localStorage.setItem(K("notifs"), JSON.stringify(notifs)); } catch (e) { } };
 const ago = ms => {
   const m = Math.floor((Date.now() - ms) / 60000);
-  return m < 1 ? "Just now" : m < 60 ? m + " min ago" : m < 1440 ? Math.floor(m / 60) + " h ago" : Math.floor(m / 1440) + " d ago";
+  return m < 1 ? t("ago.now") : m < 60 ? t("ago.min", { n: m }) : m < 1440 ? t("ago.h", { n: Math.floor(m / 60) }) : t("ago.d", { n: Math.floor(m / 1440) });
 };
 function drawNotifs() {
   $("#nList").innerHTML = notifs.length
     ? notifs.map(n => `<li class="${n.r ? "" : "new"}">${esc(n.t)}<small>${ago(n.d)}</small></li>`).join("")
-    : empty("No notifications.");
+    : empty(t("notif.none"));
   const u = notifs.filter(n => !n.r).length;
   $("#notifBadge").textContent = u; $("#notifBadge").hidden = !u;
 }
-function addNotif(t) { notifs.unshift({ t, d: Date.now(), r: 0 }); notifs = notifs.slice(0, 30); saveN(); drawNotifs(); }
+function addNotif(text) { notifs.unshift({ t: text, d: Date.now(), r: 0 }); notifs = notifs.slice(0, 30); saveN(); drawNotifs(); }
 saveN(); drawNotifs();
 
 const nd = $("#notifDlg"), hd = $("#helpDlg");
@@ -362,17 +488,17 @@ $("#nClear").onclick = () => { notifs = []; saveN(); drawNotifs(); };
 $("#helpBtn").onclick = () => { $("#helpErr").textContent = ""; hd.showModal(); };
 $("#helpSend").onclick = () => {
   const m = $("#helpMsg").value.trim();
-  if (!m) { $("#helpErr").textContent = "Write your message first."; return; }
+  if (!m) { $("#helpErr").textContent = t("help.err"); return; }
   location.href = `mailto:${SUPPORT_EMAIL}?subject=${encodeURIComponent("SA7NI support")}&body=${encodeURIComponent(m)}`;
   $("#helpMsg").value = ""; hd.close();
 };
 
 // ===== Profil + Log out =====
 $("#pName").textContent = ME.name;
-if (isAdmin) $("#pName").insertAdjacentHTML("beforeend", ' <span class="badge">Admin</span>');
+if (isAdmin) $("#pName").insertAdjacentHTML("beforeend", ' <span class="badge" data-i="admin"></span>');
 $("#adminReset").hidden = !isAdmin;
 $("#adminReset").onclick = () => {
-  if (!confirm("Restore all the recipes you deleted or edited as admin?")) return;
+  if (!confirm(t("admin.confirm"))) return;
   try { localStorage.removeItem("sa7ni_admin"); } catch (e) { }
   location.reload();
 };
@@ -385,8 +511,9 @@ $("#logoutBtn").onclick = () => {
 // ===== Supprimer une recette : ses propres recettes, ou n'importe laquelle si on est admin =====
 $("#delBtn").onclick = () => {
   const i = cur;
-  if (!R[i] || !(i >= BASE || isAdmin) || !confirm(`Delete “${R[i][0]}”? ${i >= BASE ? "This can't be undone." : "(Admin) You can restore it from your Profile."}`)) return;
-  const title = R[i][0];
+  if (!R[i] || !(i >= BASE || isAdmin)) return;
+  const title = dispTitle(R[i]);
+  if (!confirm(t(i >= BASE ? "del.confirm" : "del.confirmAdmin", { t: title }))) return;
   if (i >= BASE) {                                   // recette de l'utilisateur : suppression définitive
     R.splice(i, 1); D.splice(i, 1); baseRate.splice(i, 1); mineSaved.splice(i - BASE, 1);
     // les recettes après celle-ci changent de numéro : on corrige favoris et notes
@@ -403,7 +530,7 @@ $("#delBtn").onclick = () => {
     if (!adm.hidden.includes(R[i].key)) adm.hidden.push(R[i].key);
     saveAdm(); R[i].hid = true;
   }
-  addNotif(`Recipe “${title}” deleted 🗑️`);
+  addNotif(t("n.del", { t: title }));
   drawMine(); drawPopular(); drawFavs();
   location.hash = i >= BASE ? "#profile" : "#home";
 };
@@ -419,17 +546,26 @@ $("#editBtn").onclick = () => {
   const i = cur;
   if (!R[i] || !(i >= BASE || isAdmin)) return;
   const r = R[i], d = D[i];
-  const [t, time, serv] = document.querySelectorAll("#add .in");
-  t.value = r[0];
+  const [ti, time, serv] = document.querySelectorAll("#add .in");
+  ti.value = r[0];
   time.value = d[0] === "—" ? "" : d[0];
   serv.value = d[1] === "—" ? "" : d[1];
   addChips.forEach(x => x.classList.toggle("sel", catOf(x) === r[5]));
   showPhoto(/^(data:image\/|images\/)/.test(r[4]) ? r[4] : "");
   $("#ing").innerHTML = d[2].length ? d[2].map(x => line(holders.ing, x)).join("") : line(holders.ing).repeat(3);
   $("#step").innerHTML = d[3].length ? d[3].map(s => line(holders.step, stepText(s))).join("") : line(holders.step).repeat(3);
-  $("#add .add-title").textContent = "Edit Recipe";
-  $("#add .publish").textContent = "Save changes";
+  setAddMode(true);
   err("");
   editing = i;
   location.hash = "#add";
 };
+
+// ===== Changement de langue : on redessine tout =====
+I18N.onChange(() => {
+  document.querySelectorAll("#ing input").forEach(i => i.placeholder = t("ph.ing"));
+  document.querySelectorAll("#step input").forEach(i => i.placeholder = t("ph.step"));
+  err("");
+  drawPopular(); drawFavs(); drawMine(); drawNotifs();
+  if ($("#recipe").classList.contains("show") && R[cur]) { clearTrQueue(); showRecipe(cur); }
+});
+I18N.apply();

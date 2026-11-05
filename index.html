@@ -1,15 +1,16 @@
 <!DOCTYPE html>
-<html lang="fr">
+<html lang="en">
 
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>SA7NI</title>
-  <link href="https://fonts.googleapis.com/css2?family=Abril+Fatface&family=Inter:wght@400;500;600&display=swap"
+  <link
+    href="https://fonts.googleapis.com/css2?family=Abril+Fatface&family=Cairo:wght@400;500;600;700&family=Inter:wght@400;500;600&display=swap"
     rel="stylesheet">
   <link rel="icon"
     href="data:image/svg+xml,%3Csvg%20viewBox%3D%220%200%2064%2064%22%20fill%3D%22none%22%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%3E%3Crect%20width%3D%2264%22%20height%3D%2264%22%20rx%3D%2214%22%20fill%3D%22%23fff6e5%22/%3E%20%20%20%20%20%20%3Ccircle%20cx%3D%2232%22%20cy%3D%2232%22%20r%3D%2218%22%20stroke%3D%22%23ff9411%22%20stroke-width%3D%224%22/%3E%20%20%20%20%20%20%3Ccircle%20cx%3D%2232%22%20cy%3D%2232%22%20r%3D%2211.5%22%20fill%3D%22%23ff9411%22/%3E%20%20%20%20%20%20%3Cpath%20d%3D%22M4%206v13c0%203%202%205%205%205s5-2%205-5V6M9%206v52%22%20stroke%3D%22%23ff9411%22%20stroke-width%3D%223.2%22%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22/%3E%20%20%20%20%20%20%3Cpath%20d%3D%22M55%206c-5%204-7%2013-6%2024h6z%22%20fill%3D%22%23ff9411%22/%3E%20%20%20%20%20%20%3Cpath%20d%3D%22M55%2030v28%22%20stroke%3D%22%23ff9411%22%20stroke-width%3D%223.2%22%20stroke-linecap%3D%22round%22/%3E%20%20%20%20%3C/svg%3E">
-  <link rel="stylesheet" href="style.css?v=15">
+  <link rel="stylesheet" href="style.css?v=16">
 </head>
 
 <body class="guest">
@@ -30,22 +31,29 @@
       </div>
       <p class="tagline">Ija menna w 4ou9 l benna</p>
       <nav>
-        <a href="#home" data-nav="home">🏠 Home</a>
-        <a href="#favorites" data-nav="favorites">♡ Favorites</a>
-        <a href="#add" data-nav="add">＋ Add</a>
-        <a href="#profile" data-nav="profile">👤 Profile</a>
+        <a href="#home" data-nav="home" data-i="nav.home"></a>
+        <a href="#favorites" data-nav="favorites" data-i="nav.fav"></a>
+        <a href="#add" data-nav="add" data-i="nav.add"></a>
+        <a href="#profile" data-nav="profile" data-i="nav.profile"></a>
       </nav>
+      <div class="langs" role="group" aria-label="Language">
+        <button type="button" data-lang="en">EN</button>
+        <button type="button" data-lang="fr">FR</button>
+        <button type="button" data-lang="ar">عربي</button>
+      </div>
     </aside>
 
     <main>
       <!-- HOME -->
       <section id="home" class="view">
-        <label class="search"><span>🔍</span><input id="q" type="search" placeholder="search recipes..."></label>
+        <label class="search"><span>🔍</span><input id="q" type="search" data-i-ph="home.search"></label>
         <div class="chips">
-          <button class="chip sel" data-all>All 🍽️</button><button class="chip">Breakfast 🥞</button><button
-            class="chip">Lunch 🥪</button>
-          <button class="chip">Dinner 🍝</button><button class="chip">Desserts 🍰</button>
-          <button class="chip">Drinks 🍹</button>
+          <button class="chip sel" data-all data-i="cat.All"></button>
+          <button class="chip" data-cat="Breakfast" data-i="cat.Breakfast"></button>
+          <button class="chip" data-cat="Lunch" data-i="cat.Lunch"></button>
+          <button class="chip" data-cat="Dinner" data-i="cat.Dinner"></button>
+          <button class="chip" data-cat="Desserts" data-i="cat.Desserts"></button>
+          <button class="chip" data-cat="Drinks" data-i="cat.Drinks"></button>
         </div>
         <h2 class="title" id="popTitle">Popular</h2>
         <div class="grid" id="popular"></div>
@@ -53,31 +61,32 @@
 
       <!-- RECIPE -->
       <section id="recipe" class="view">
-        <a href="#home" class="back">← Retour</a>
+        <a href="#home" class="back" data-i="back"></a>
         <div class="recipe">
           <div class="hero" id="rHero"></div>
           <div>
             <h2 class="rtitle" id="rTitle"></h2>
-            <p class="by">By <b id="rBy"></b></p>
+            <p class="by"><span data-i="by"></span> <b id="rBy"></b></p>
             <p class="meta">⭐ <span id="rRate"></span></p>
             <p class="meta">🕒 <span id="rTime"></span></p>
             <p class="meta">👥 <span id="rServ"></span></p>
             <hr>
-            <p class="meta">⭐ Rate this recipe</p>
+            <p class="meta" data-i="rate.this"></p>
             <div class="stars" id="stars"></div>
             <p class="hint" id="rateMsg"></p>
-            <button class="btn fav" id="favBtn">Add To Favorites</button>
-            <button class="btn edit" id="editBtn" type="button" hidden>Edit recipe</button>
-            <button class="btn del" id="delBtn" type="button" hidden>Delete recipe</button>
+            <button class="btn fav" id="favBtn" data-i="fav.add"></button>
+            <button class="btn edit" id="editBtn" type="button" data-i="edit" hidden></button>
+            <button class="btn del" id="delBtn" type="button" data-i="del" hidden></button>
           </div>
         </div>
+        <p class="hint" id="trMsg" hidden></p>
         <div class="two">
           <div>
-            <h3 class="sub">Ingredients</h3>
+            <h3 class="sub" data-i="ingredients"></h3>
             <ul class="ing" id="rIng"></ul>
           </div>
           <div>
-            <h3 class="sub">Instructions</h3>
+            <h3 class="sub" data-i="instructions"></h3>
             <ol class="steps" id="rSteps"></ol>
           </div>
         </div>
@@ -85,8 +94,8 @@
 
       <!-- FAVORITES -->
       <section id="favorites" class="view">
-        <h2 class="title dark">Favorites</h2>
-        <label class="search"><span>🔍</span><input id="qf" type="search" placeholder="search recipes..."></label>
+        <h2 class="title dark" data-i="favorites"></h2>
+        <label class="search"><span>🔍</span><input id="qf" type="search" data-i-ph="home.search"></label>
         <div class="grid" id="favs"></div>
       </section>
 
@@ -96,67 +105,72 @@
           <div class="avatar">👩‍🍳</div>
           <div>
             <h2 class="name" id="pName"></h2>
-            <p class="bio">Cooking with love</p>
+            <p class="bio" data-i="bio"></p>
           </div>
         </div>
         <div class="stats">
-          <div><b id="recipesCount">0</b>Recipes</div>
-          <div><b id="savedCount">0</b>Saved</div>
-          <div><b id="reviewsCount">0</b>Reviews</div>
+          <div><b id="recipesCount">0</b><span data-i="stats.recipes"></span></div>
+          <div><b id="savedCount">0</b><span data-i="stats.saved"></span></div>
+          <div><b id="reviewsCount">0</b><span data-i="stats.reviews"></span></div>
         </div>
         <div class="rowhead">
-          <h2 class="title dark">My Recipes</h2><a href="#home" class="all">See All →</a>
+          <h2 class="title dark" data-i="my.recipes"></h2><a href="#home" class="all" data-i="seeAll"></a>
         </div>
         <div class="grid mini" id="mine"></div>
         <div class="rowhead">
-          <h2 class="title dark">Saved Recipes</h2><a href="#favorites" class="all">See All →</a>
+          <h2 class="title dark" data-i="saved.recipes"></h2><a href="#favorites" class="all" data-i="seeAll"></a>
         </div>
         <div class="grid mini" id="saved"></div>
         <ul class="menu">
-          <li id="notifBtn">🔔 Notifications <span><b id="notifBadge" class="badge" hidden>0</b>›</span></li>
-          <li id="dark">🌙 Dark Mode <span>›</span></li>
-          <li id="helpBtn">❔ Help &amp; Support <span>›</span></li>
-          <li id="adminReset" hidden>🛠️ Admin: restore deleted / edited recipes <span>›</span></li>
-          <li class="out" id="logoutBtn">⎋ Log Out <span>›</span></li>
+          <li id="notifBtn"><span data-i="menu.notif"></span><span><b id="notifBadge" class="badge" hidden>0</b><span
+                class="chev">›</span></span></li>
+          <li id="dark"><span data-i="menu.dark"></span><span class="chev">›</span></li>
+          <li id="helpBtn"><span data-i="menu.help"></span><span class="chev">›</span></li>
+          <li id="adminReset" hidden><span data-i="menu.admin"></span><span class="chev">›</span></li>
+          <li class="out" id="logoutBtn"><span data-i="menu.logout"></span><span class="chev">›</span></li>
         </ul>
       </section>
 
       <!-- ADD -->
       <section id="add" class="view">
-        <h2 class="add-title">Add Recipe</h2>
+        <h2 class="add-title" data-i="add.heading"></h2>
         <div class="form">
-          <label class="photo"><span>📷</span><b>Add a photo</b>Tap to choose or take a photo<input type="file"
-              accept="image/*" hidden></label>
+          <label class="photo"><span>📷</span><b data-i="add.photo"></b><small data-i="add.photoHint"></small><input
+              type="file" accept="image/*" hidden></label>
           <div class="fields">
-            <label class="lab">Recipe Title<input class="in" placeholder="e.g Koksi bedjej"></label>
-            <p class="lab">Category</p>
+            <label class="lab"><span data-i="add.title"></span><input class="in" data-i-ph="add.titlePh"></label>
+            <p class="lab" data-i="add.category"></p>
             <div class="chips left">
-              <button class="chip">Breakfast 🥞</button><button class="chip">Lunch 🥪</button>
-              <button class="chip">Dinner 🍝</button><button class="chip">Desserts 🍰</button>
-              <button class="chip">Drinks 🍹</button>
+              <button class="chip" data-cat="Breakfast" data-i="cat.Breakfast"></button>
+              <button class="chip" data-cat="Lunch" data-i="cat.Lunch"></button>
+              <button class="chip" data-cat="Dinner" data-i="cat.Dinner"></button>
+              <button class="chip" data-cat="Desserts" data-i="cat.Desserts"></button>
+              <button class="chip" data-cat="Drinks" data-i="cat.Drinks"></button>
             </div>
             <div class="pair">
-              <label class="lab hd">Preparing Time<input class="in" placeholder="🕒 e.g 30 min"></label>
-              <label class="lab hd">Servings<input class="in" placeholder="👥 e.g 4 Persons"></label>
+              <label class="lab hd"><span data-i="add.time"></span><input class="in" data-i-ph="add.timePh"></label>
+              <label class="lab hd"><span data-i="add.serv"></span><input class="in" data-i-ph="add.servPh"></label>
             </div>
           </div>
           <div>
             <div class="rowhead">
-              <h3 class="sub hd">Ingredients</h3><button class="plus" data-add="ing">+ Add Ingredient</button>
+              <h3 class="sub hd" data-i="ingredients"></h3><button class="plus" data-add="ing"
+                data-i="add.addIng"></button>
             </div>
             <div id="ing"></div>
           </div>
           <div>
             <div class="rowhead">
-              <h3 class="sub hd">Instructions</h3><button class="plus" data-add="step">+ Add Step</button>
+              <h3 class="sub hd" data-i="instructions"></h3><button class="plus" data-add="step"
+                data-i="add.addStep"></button>
             </div>
             <div id="step"></div>
           </div>
         </div>
         <p class="err" id="addErr" role="alert"></p>
         <div class="actions">
-          <button class="btn cancel" id="cancelAdd" type="button">Cancel</button>
-          <button class="btn publish" type="button">Publish recipe</button>
+          <button class="btn cancel" id="cancelAdd" type="button" data-i="cancel"></button>
+          <button class="btn publish" type="button" data-i="add.publish"></button>
         </div>
       </section>
     </main>
@@ -165,6 +179,11 @@
   <!-- LOGIN / SIGN UP (visible seulement si personne n'est connecté) -->
   <section id="auth">
     <form class="auth-card" id="authForm" novalidate>
+      <div class="langs" role="group" aria-label="Language">
+        <button type="button" data-lang="en">EN</button>
+        <button type="button" data-lang="fr">FR</button>
+        <button type="button" data-lang="ar">عربي</button>
+      </div>
       <svg class="brand-icon" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg" aria-label="SA7NI logo"
         role="img">
         <circle cx="32" cy="32" r="18" stroke="currentColor" stroke-width="4" />
@@ -177,17 +196,17 @@
       <h1 class="logo">SA7NI</h1>
       <p class="tagline">Ija menna w 4ou9 l benna</p>
       <div class="tabs">
-        <button type="button" class="tab sel" data-mode="login">Log in</button>
-        <button type="button" class="tab" data-mode="signup">Sign up</button>
+        <button type="button" class="tab sel" data-mode="login" data-i="auth.login"></button>
+        <button type="button" class="tab" data-mode="signup" data-i="auth.signup"></button>
       </div>
-      <label class="lab" id="nameRow" hidden>Name<input class="in" id="aName" autocomplete="name"
-          placeholder="e.g Tasnim"></label>
-      <label class="lab">Email<input class="in" id="aEmail" type="email" autocomplete="email"
-          placeholder="you@example.com"></label>
-      <label class="lab">Password<input class="in" id="aPw" type="password" autocomplete="current-password"
-          placeholder="min 6 characters"></label>
+      <label class="lab" id="nameRow" hidden><span data-i="auth.name"></span><input class="in" id="aName"
+          autocomplete="name" data-i-ph="auth.namePh"></label>
+      <label class="lab"><span data-i="auth.email"></span><input class="in" id="aEmail" type="email"
+          autocomplete="email" placeholder="you@example.com"></label>
+      <label class="lab"><span data-i="auth.pw"></span><input class="in" id="aPw" type="password"
+          autocomplete="current-password" data-i-ph="auth.pwPh"></label>
       <p class="err" id="aErr" role="alert"></p>
-      <button class="btn" id="aGo" type="submit">Log in</button>
+      <button class="btn" id="aGo" type="submit" data-i="auth.login"></button>
     </form>
   </section>
 
@@ -195,10 +214,10 @@
   <dialog id="notifDlg" class="dlg">
     <div class="dlg-in">
       <div class="dlg-head">
-        <h2>Notifications</h2><button class="x" data-close aria-label="Close">✕</button>
+        <h2 data-i="notif.title"></h2><button class="x" data-close aria-label="Close">✕</button>
       </div>
       <ul class="nlist" id="nList"></ul>
-      <div class="dlg-foot"><button class="btn cancel" id="nClear" type="button">Clear all</button></div>
+      <div class="dlg-foot"><button class="btn cancel" id="nClear" type="button" data-i="notif.clear"></button></div>
     </div>
   </dialog>
 
@@ -206,32 +225,33 @@
   <dialog id="helpDlg" class="dlg">
     <div class="dlg-in">
       <div class="dlg-head">
-        <h2>Help &amp; Support</h2><button class="x" data-close aria-label="Close">✕</button>
+        <h2 data-i="help.title"></h2><button class="x" data-close aria-label="Close">✕</button>
       </div>
       <details>
-        <summary>How do I add a recipe?</summary>
-        <p>Open the Add page, fill in the title, ingredients and steps, then tap “Publish recipe”.</p>
+        <summary data-i="help.q1"></summary>
+        <p data-i="help.a1"></p>
       </details>
       <details>
-        <summary>How do I save a favorite?</summary>
-        <p>Open any recipe and tap “Add To Favorites”. Find it later in the Favorites page.</p>
+        <summary data-i="help.q2"></summary>
+        <p data-i="help.a2"></p>
       </details>
       <details>
-        <summary>How do I rate a recipe?</summary>
-        <p>Tap a star on the recipe page. Tap the same star again to remove your rating.</p>
+        <summary data-i="help.q3"></summary>
+        <p data-i="help.a3"></p>
       </details>
       <details>
-        <summary>Where is my data stored?</summary>
-        <p>Everything stays in this browser. Clearing the browser data deletes your recipes, favorites and ratings.</p>
+        <summary data-i="help.q4"></summary>
+        <p data-i="help.a4"></p>
       </details>
-      <p class="lab" style="margin-top:18px">Still need help?</p>
-      <textarea id="helpMsg" class="in area" placeholder="Describe your problem..."></textarea>
+      <p class="lab" style="margin-top:18px" data-i="help.still"></p>
+      <textarea id="helpMsg" class="in area" data-i-ph="help.ph"></textarea>
       <p class="err" id="helpErr" role="alert"></p>
-      <button class="btn" id="helpSend" type="button">Send message</button>
+      <button class="btn" id="helpSend" type="button" data-i="help.send"></button>
     </div>
   </dialog>
 
-  <script src="auth.js?v=15"></script>
+  <script src="i18n.js?v=16"></script>
+  <script src="auth.js?v=16"></script>
 </body>
 
 </html>

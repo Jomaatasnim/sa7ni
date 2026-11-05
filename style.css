@@ -380,7 +380,7 @@ hr {
 }
 
 .steps {
-  padding-left: 24px;
+  padding-inline-start: 24px;
   line-height: 1.7
 }
 
@@ -512,6 +512,10 @@ hr {
   font-size: 20px
 }
 
+.photo small {
+  font-size: 15px
+}
+
 .lab {
   display: block;
   font-weight: 600;
@@ -629,6 +633,10 @@ hr {
 
   .tagline {
     margin-bottom: 16px
+  }
+
+  .langs {
+    margin-top: 16px
   }
 }
 
@@ -809,7 +817,7 @@ body.night .btn.cancel:hover {
   border-radius: 10px;
   padding: 2px 8px;
   font-size: 13px;
-  margin-right: 8px
+  margin-inline-end: 8px
 }
 
 .dlg {
@@ -861,11 +869,11 @@ body.night .btn.cancel:hover {
   border-radius: 12px;
   background: var(--card);
   margin-bottom: 10px;
-  border-left: 4px solid transparent
+  border-inline-start: 4px solid transparent
 }
 
 .nlist li.new {
-  border-left-color: var(--or)
+  border-inline-start-color: var(--or)
 }
 
 .nlist small {
@@ -956,7 +964,7 @@ body.guest .layout {
 }
 
 .auth-card .lab {
-  text-align: left;
+  text-align: start;
   margin: 12px 0 0;
   font-size: 15px
 }
@@ -1040,4 +1048,87 @@ body.night .btn.edit {
 
 body.night .btn.edit:hover {
   color: #fff
+}
+
+/* ===== Sélecteur de langue ===== */
+.langs {
+  display: flex;
+  gap: 6px;
+  margin-top: 28px
+}
+
+.langs button {
+  flex: 1;
+  padding: 8px 6px;
+  border-radius: 12px;
+  border: 2px solid #fff6e5b0;
+  background: none;
+  color: #fff6e5;
+  font-weight: 600;
+  cursor: pointer
+}
+
+.langs button:hover {
+  background: #ffffff30
+}
+
+.langs button.sel {
+  background: var(--bg);
+  color: var(--or2);
+  border-color: var(--bg)
+}
+
+.auth-card .langs {
+  margin: 0 0 18px
+}
+
+.auth-card .langs button {
+  border-color: var(--or);
+  color: var(--or2)
+}
+
+.auth-card .langs button:hover {
+  background: #ff941122
+}
+
+.auth-card .langs button.sel {
+  background: var(--or);
+  color: #fff
+}
+
+body.night .side .langs button {
+  border-color: var(--line);
+  color: var(--mu)
+}
+
+body.night .side .langs button.sel {
+  background: var(--card);
+  color: var(--or);
+  border-color: var(--or)
+}
+
+/* ===== Arabe / droite-à-gauche ===== */
+html[lang="ar"] body {
+  font-family: Cairo, Inter, sans-serif
+}
+
+html[lang="ar"] .chip,
+html[lang="ar"] .rtitle,
+html[lang="ar"] .hd {
+  font-family: Cairo, sans-serif;
+  font-weight: 700
+}
+
+/* le letter-spacing casse les lettres arabes liées */
+html[lang="ar"] *:not(.logo) {
+  letter-spacing: normal !important
+}
+
+html[dir="rtl"] .chev {
+  display: inline-block;
+  transform: scaleX(-1)
+}
+
+html[dir="rtl"] .side {
+  border-right: 0
 }
