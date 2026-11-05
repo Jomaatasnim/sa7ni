@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>SA7NI</title>
+  <link href="https://fonts.googleapis.com/css2?family=Abril+Fatface&family=Inter:wght@400;500;600&display=swap"
+    rel="stylesheet">
+  <link rel="icon"
+    href="data:image/svg+xml,%3Csvg%20viewBox%3D%220%200%2064%2064%22%20fill%3D%22none%22%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%3E%3Crect%20width%3D%2264%22%20height%3D%2264%22%20rx%3D%2214%22%20fill%3D%22%23fff6e5%22/%3E%20%20%20%20%20%20%3Ccircle%20cx%3D%2232%22%20cy%3D%2232%22%20r%3D%2218%22%20stroke%3D%22%23ff9411%22%20stroke-width%3D%224%22/%3E%20%20%20%20%20%20%3Ccircle%20cx%3D%2232%22%20cy%3D%2232%22%20r%3D%2211.5%22%20fill%3D%22%23ff9411%22/%3E%20%20%20%20%20%20%3Cpath%20d%3D%22M4%206v13c0%203%202%205%205%205s5-2%205-5V6M9%206v52%22%20stroke%3D%22%23ff9411%22%20stroke-width%3D%223.2%22%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22/%3E%20%20%20%20%20%20%3Cpath%20d%3D%22M55%206c-5%204-7%2013-6%2024h6z%22%20fill%3D%22%23ff9411%22/%3E%20%20%20%20%20%20%3Cpath%20d%3D%22M55%2030v28%22%20stroke%3D%22%23ff9411%22%20stroke-width%3D%223.2%22%20stroke-linecap%3D%22round%22/%3E%20%20%20%20%3C/svg%3E">
+  <link rel="stylesheet" href="style.css?v=15">
+</head>
+
+<body class="guest">
+  <div class="layout">
+
+    <aside class="side">
+      <div class="brand">
+        <h1 class="logo">SA7NI</h1>
+        <svg class="brand-icon" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg"
+          aria-label="SA7NI logo" role="img">
+          <circle cx="32" cy="32" r="18" stroke="currentColor" stroke-width="4" />
+          <circle cx="32" cy="32" r="11.5" fill="currentColor" />
+          <path d="M4 6v13c0 3 2 5 5 5s5-2 5-5V6M9 6v52" stroke="currentColor" stroke-width="3.2" stroke-linecap="round"
+            stroke-linejoin="round" />
+          <path d="M55 6c-5 4-7 13-6 24h6z" fill="currentColor" />
+          <path d="M55 30v28" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" />
+        </svg>
+      </div>
+      <p class="tagline">Ija menna w 4ou9 l benna</p>
+      <nav>
+        <a href="#home" data-nav="home">🏠 Home</a>
+        <a href="#favorites" data-nav="favorites">♡ Favorites</a>
+        <a href="#add" data-nav="add">＋ Add</a>
+        <a href="#profile" data-nav="profile">👤 Profile</a>
+      </nav>
+    </aside>
+
+    <main>
+      <!-- HOME -->
+      <section id="home" class="view">
+        <label class="search"><span>🔍</span><input id="q" type="search" placeholder="search recipes..."></label>
+        <div class="chips">
+          <button class="chip sel" data-all>All 🍽️</button><button class="chip">Breakfast 🥞</button><button
+            class="chip">Lunch 🥪</button>
+          <button class="chip">Dinner 🍝</button><button class="chip">Desserts 🍰</button>
+          <button class="chip">Drinks 🍹</button>
+        </div>
+        <h2 class="title" id="popTitle">Popular</h2>
+        <div class="grid" id="popular"></div>
+      </section>
+
+      <!-- RECIPE -->
+      <section id="recipe" class="view">
+        <a href="#home" class="back">← Retour</a>
+        <div class="recipe">
+          <div class="hero" id="rHero"></div>
+          <div>
+            <h2 class="rtitle" id="rTitle"></h2>
+            <p class="by">By <b id="rBy"></b></p>
+            <p class="meta">⭐ <span id="rRate"></span></p>
+            <p class="meta">🕒 <span id="rTime"></span></p>
+            <p class="meta">👥 <span id="rServ"></span></p>
+            <hr>
+            <p class="meta">⭐ Rate this recipe</p>
+            <div class="stars" id="stars"></div>
+            <p class="hint" id="rateMsg"></p>
+            <button class="btn fav" id="favBtn">Add To Favorites</button>
+            <button class="btn edit" id="editBtn" type="button" hidden>Edit recipe</button>
+            <button class="btn del" id="delBtn" type="button" hidden>Delete recipe</button>
+          </div>
+        </div>
+        <div class="two">
+          <div>
+            <h3 class="sub">Ingredients</h3>
+            <ul class="ing" id="rIng"></ul>
+          </div>
+          <div>
+            <h3 class="sub">Instructions</h3>
+            <ol class="steps" id="rSteps"></ol>
+          </div>
+        </div>
+      </section>
+
+      <!-- FAVORITES -->
+      <section id="favorites" class="view">
+        <h2 class="title dark">Favorites</h2>
+        <label class="search"><span>🔍</span><input id="qf" type="search" placeholder="search recipes..."></label>
+        <div class="grid" id="favs"></div>
+      </section>
+
+      <!-- PROFILE -->
+      <section id="profile" class="view">
+        <div class="me">
+          <div class="avatar">👩‍🍳</div>
+          <div>
+            <h2 class="name" id="pName"></h2>
+            <p class="bio">Cooking with love</p>
+          </div>
+        </div>
+        <div class="stats">
+          <div><b id="recipesCount">0</b>Recipes</div>
+          <div><b id="savedCount">0</b>Saved</div>
+          <div><b id="reviewsCount">0</b>Reviews</div>
+        </div>
+        <div class="rowhead">
+          <h2 class="title dark">My Recipes</h2><a href="#home" class="all">See All →</a>
+        </div>
+        <div class="grid mini" id="mine"></div>
+        <div class="rowhead">
+          <h2 class="title dark">Saved Recipes</h2><a href="#favorites" class="all">See All →</a>
+        </div>
+        <div class="grid mini" id="saved"></div>
+        <ul class="menu">
+          <li id="notifBtn">🔔 Notifications <span><b id="notifBadge" class="badge" hidden>0</b>›</span></li>
+          <li id="dark">🌙 Dark Mode <span>›</span></li>
+          <li id="helpBtn">❔ Help &amp; Support <span>›</span></li>
+          <li id="adminReset" hidden>🛠️ Admin: restore deleted / edited recipes <span>›</span></li>
+          <li class="out" id="logoutBtn">⎋ Log Out <span>›</span></li>
+        </ul>
+      </section>
+
+      <!-- ADD -->
+      <section id="add" class="view">
+        <h2 class="add-title">Add Recipe</h2>
+        <div class="form">
+          <label class="photo"><span>📷</span><b>Add a photo</b>Tap to choose or take a photo<input type="file"
+              accept="image/*" hidden></label>
+          <div class="fields">
+            <label class="lab">Recipe Title<input class="in" placeholder="e.g Koksi bedjej"></label>
+            <p class="lab">Category</p>
+            <div class="chips left">
+              <button class="chip">Breakfast 🥞</button><button class="chip">Lunch 🥪</button>
+              <button class="chip">Dinner 🍝</button><button class="chip">Desserts 🍰</button>
+              <button class="chip">Drinks 🍹</button>
+            </div>
+            <div class="pair">
+              <label class="lab hd">Preparing Time<input class="in" placeholder="🕒 e.g 30 min"></label>
+              <label class="lab hd">Servings<input class="in" placeholder="👥 e.g 4 Persons"></label>
+            </div>
+          </div>
+          <div>
+            <div class="rowhead">
+              <h3 class="sub hd">Ingredients</h3><button class="plus" data-add="ing">+ Add Ingredient</button>
+            </div>
+            <div id="ing"></div>
+          </div>
+          <div>
+            <div class="rowhead">
+              <h3 class="sub hd">Instructions</h3><button class="plus" data-add="step">+ Add Step</button>
+            </div>
+            <div id="step"></div>
+          </div>
+        </div>
+        <p class="err" id="addErr" role="alert"></p>
+        <div class="actions">
+          <button class="btn cancel" id="cancelAdd" type="button">Cancel</button>
+          <button class="btn publish" type="button">Publish recipe</button>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <!-- LOGIN / SIGN UP (visible seulement si personne n'est connecté) -->
+  <section id="auth">
+    <form class="auth-card" id="authForm" novalidate>
+      <svg class="brand-icon" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg" aria-label="SA7NI logo"
+        role="img">
+        <circle cx="32" cy="32" r="18" stroke="currentColor" stroke-width="4" />
+        <circle cx="32" cy="32" r="11.5" fill="currentColor" />
+        <path d="M4 6v13c0 3 2 5 5 5s5-2 5-5V6M9 6v52" stroke="currentColor" stroke-width="3.2" stroke-linecap="round"
+          stroke-linejoin="round" />
+        <path d="M55 6c-5 4-7 13-6 24h6z" fill="currentColor" />
+        <path d="M55 30v28" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" />
+      </svg>
+      <h1 class="logo">SA7NI</h1>
+      <p class="tagline">Ija menna w 4ou9 l benna</p>
+      <div class="tabs">
+        <button type="button" class="tab sel" data-mode="login">Log in</button>
+        <button type="button" class="tab" data-mode="signup">Sign up</button>
+      </div>
+      <label class="lab" id="nameRow" hidden>Name<input class="in" id="aName" autocomplete="name"
+          placeholder="e.g Tasnim"></label>
+      <label class="lab">Email<input class="in" id="aEmail" type="email" autocomplete="email"
+          placeholder="you@example.com"></label>
+      <label class="lab">Password<input class="in" id="aPw" type="password" autocomplete="current-password"
+          placeholder="min 6 characters"></label>
+      <p class="err" id="aErr" role="alert"></p>
+      <button class="btn" id="aGo" type="submit">Log in</button>
+    </form>
+  </section>
+
+  <!-- NOTIFICATIONS -->
+  <dialog id="notifDlg" class="dlg">
+    <div class="dlg-in">
+      <div class="dlg-head">
+        <h2>Notifications</h2><button class="x" data-close aria-label="Close">✕</button>
+      </div>
+      <ul class="nlist" id="nList"></ul>
+      <div class="dlg-foot"><button class="btn cancel" id="nClear" type="button">Clear all</button></div>
+    </div>
+  </dialog>
+
+  <!-- HELP & SUPPORT -->
+  <dialog id="helpDlg" class="dlg">
+    <div class="dlg-in">
+      <div class="dlg-head">
+        <h2>Help &amp; Support</h2><button class="x" data-close aria-label="Close">✕</button>
+      </div>
+      <details>
+        <summary>How do I add a recipe?</summary>
+        <p>Open the Add page, fill in the title, ingredients and steps, then tap “Publish recipe”.</p>
+      </details>
+      <details>
+        <summary>How do I save a favorite?</summary>
+        <p>Open any recipe and tap “Add To Favorites”. Find it later in the Favorites page.</p>
+      </details>
+      <details>
+        <summary>How do I rate a recipe?</summary>
+        <p>Tap a star on the recipe page. Tap the same star again to remove your rating.</p>
+      </details>
+      <details>
+        <summary>Where is my data stored?</summary>
+        <p>Everything stays in this browser. Clearing the browser data deletes your recipes, favorites and ratings.</p>
+      </details>
+      <p class="lab" style="margin-top:18px">Still need help?</p>
+      <textarea id="helpMsg" class="in area" placeholder="Describe your problem..."></textarea>
+      <p class="err" id="helpErr" role="alert"></p>
+      <button class="btn" id="helpSend" type="button">Send message</button>
+    </div>
+  </dialog>
+
+  <script src="auth.js?v=15"></script>
+</body>
+
+</html>

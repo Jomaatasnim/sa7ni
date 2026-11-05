@@ -1,0 +1,1043 @@
+:root {
+  --chip-border: var(--tx);
+  --bg: #fff6e5;
+  --or: #ff9411;
+  --or2: #e8780a;
+  --card: #ffe6b8;
+  --soft: #ffe9c2;
+  --tx: #d77f33;
+  --mu: #7a6a58;
+  --red: #c4500a;
+  --line: #eadcc2
+}
+
+body.night {
+  --bg: #181310;
+  --card: #251d16;
+  --soft: #2b2219;
+  --tx: #f5ead9;
+  --mu: #b9a88f;
+  --line: #3a2e22;
+  color-scheme: dark
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0
+}
+
+body {
+  font-family: Inter, sans-serif;
+  background: var(--bg);
+  color: var(--tx)
+}
+
+a {
+  color: inherit;
+  text-decoration: none
+}
+
+button,
+input {
+  font: inherit;
+  color: inherit
+}
+
+.layout {
+  display: grid;
+  grid-template-columns: 260px 1fr;
+  min-height: 100vh
+}
+
+/* Sidebar */
+.side {
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  overflow-y: auto;
+  background: var(--or);
+  padding: 32px 20px;
+  color: #fff6e5
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  min-width: 0
+}
+
+.logo {
+  font: 400 34px "Abril Fatface", serif;
+  letter-spacing: 3px;
+  line-height: 1;
+  white-space: nowrap
+}
+
+.brand-icon {
+  width: 40px;
+  height: 40px;
+  flex: none;
+  color: #fff6e5
+}
+
+.tagline {
+  font-size: 13px;
+  margin: 10px 0 36px;
+  opacity: .9
+}
+
+.side nav {
+  display: flex;
+  flex-direction: column;
+  gap: 8px
+}
+
+.side nav a {
+  display: block;
+  padding: 13px 16px;
+  border-radius: 14px;
+  font-weight: 500;
+  font-size: 17px;
+  color: var(--red);
+  white-space: nowrap
+}
+
+.side nav a:hover {
+  background: #ffffff40
+}
+
+.side nav a.active {
+  background: var(--bg);
+  color: var(--or2)
+}
+
+main {
+  padding: 36px 56px 60px;
+  width: 100%;
+  min-width: 0
+}
+
+.view {
+  display: none
+}
+
+.view.show {
+  display: block
+}
+
+/* Recherche + chips */
+.search {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  height: 50px;
+  padding: 0 18px;
+  background: var(--soft);
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  width: 100%
+}
+
+.search input {
+  flex: 1;
+  border: 0;
+  outline: 0;
+  background: none;
+  letter-spacing: 2px
+}
+
+.search:focus-within {
+  outline: 2px solid var(--or)
+}
+
+.chips {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin-top: 20px
+}
+
+.chips.left {
+  margin: 0 0 20px
+}
+
+.chip {
+  font: 400 14px "Abril Fatface", serif;
+  letter-spacing: 1px;
+  background: var(--or);
+  color: #3a2300;
+  border: 0;
+  border-radius: 20px;
+  padding: 10px 18px;
+  cursor: pointer
+}
+
+.chip:hover,
+.chip.sel {
+  background: var(--or2);
+  color: #fff
+}
+
+.title {
+  font-weight: 400;
+  font-size: 28px;
+  color: var(--or);
+  margin: 28px 0 18px
+}
+
+.title.dark {
+  color: var(--tx);
+  font-weight: 600;
+  font-size: 24px;
+  letter-spacing: 1px
+}
+
+/* Cartes */
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
+  gap: 18px
+}
+
+.card {
+  background: var(--card);
+  border-radius: 16px;
+  padding: 20px 14px 16px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  transition: transform .15s
+}
+
+.card:hover {
+  transform: translateY(-3px)
+}
+
+.thumb {
+  width: 100%;
+  height: 150px;
+  display: grid;
+  place-items: center;
+  font-size: 80px;
+  background: #fff3d6;
+  border-radius: 8px
+}
+
+.card h3 {
+  font-size: 16px;
+  font-weight: 600;
+  margin-top: 14px
+}
+
+.author {
+  font-size: 13px;
+  color: var(--mu);
+  margin-top: 8px
+}
+
+.rating {
+  font-size: 13px;
+  margin-top: 8px
+}
+
+.rating i {
+  color: var(--or);
+  font-style: normal;
+  font-size: 16px
+}
+
+.btn {
+  display: block;
+  width: 100%;
+  margin-top: 14px;
+  padding: 10px;
+  background: var(--or);
+  color: #fff;
+  font-size: 17px;
+  font-weight: 500;
+  border: 0;
+  border-radius: 22px;
+  cursor: pointer;
+  text-align: center
+}
+
+.btn:hover {
+  background: var(--or2)
+}
+
+.card.m {
+  background: #fff;
+  color: #2b2118;
+  padding: 14px 10px
+}
+
+.mini .thumb {
+  height: 130px;
+  font-size: 64px
+}
+
+body.night .card.m {
+  background: var(--card);
+  color: var(--tx)
+}
+
+a:focus-visible,
+button:focus-visible,
+input:focus-visible {
+  outline: 3px solid var(--or2);
+  outline-offset: 2px
+}
+
+/* Recette */
+.back {
+  color: var(--or2);
+  font-weight: 600
+}
+
+.recipe {
+  display: grid;
+  grid-template-columns: 1.4fr 1fr;
+  gap: 48px;
+  margin-top: 20px;
+  align-items: start
+}
+
+.hero {
+  height: 520px;
+  display: grid;
+  place-items: center;
+  font-size: 230px;
+  background: var(--card);
+  border-radius: 20px
+}
+
+.rtitle {
+  font: 400 46px "Abril Fatface", serif;
+  color: var(--or)
+}
+
+.by {
+  margin: 6px 0 16px;
+  color: #a35a00
+}
+
+.meta {
+  font-size: 17px;
+  margin: 12px 0
+}
+
+hr {
+  border: 0;
+  border-top: 1px solid var(--line);
+  margin: 18px 0
+}
+
+.stars button {
+  background: none;
+  border: 0;
+  font-size: 34px;
+  color: #f5b400;
+  cursor: pointer
+}
+
+.btn.fav {
+  width: auto;
+  padding: 12px 28px;
+  margin-top: 14px
+}
+
+.btn.fav.on {
+  background: var(--red)
+}
+
+.two {
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+  gap: 40px;
+  margin-top: 36px;
+  border-top: 1px solid var(--line);
+  padding-top: 10px
+}
+
+.sub {
+  color: #e0442b;
+  font-weight: 500;
+  font-size: 20px;
+  margin: 18px 0 12px
+}
+
+.ing {
+  list-style: none;
+  line-height: 2
+}
+
+.ing li::before {
+  content: "· "
+}
+
+.steps {
+  padding-left: 24px;
+  line-height: 1.7
+}
+
+.steps li {
+  margin-bottom: 12px
+}
+
+/* Profil */
+.me {
+  display: flex;
+  align-items: center;
+  gap: 28px
+}
+
+.avatar {
+  width: 110px;
+  height: 110px;
+  border-radius: 50%;
+  background: var(--card);
+  display: grid;
+  place-items: center;
+  font-size: 56px;
+  border: 3px solid var(--or)
+}
+
+.name {
+  font-size: 32px;
+  letter-spacing: 2px
+}
+
+.bio {
+  letter-spacing: 2px;
+  color: var(--mu);
+  margin-top: 4px
+}
+
+.stats {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  margin: 28px 0 8px;
+  padding: 22px;
+  background: var(--card);
+  border-radius: 18px;
+  text-align: center;
+  font-size: 18px;
+  letter-spacing: 1px
+}
+
+.stats b {
+  display: block;
+  font-size: 32px;
+  color: var(--or)
+}
+
+.rowhead {
+  display: flex;
+  justify-content: space-between;
+  align-items: center
+}
+
+.all {
+  color: var(--or);
+  font-weight: 600
+}
+
+.menu {
+  list-style: none;
+  margin-top: 36px;
+  background: var(--card);
+  border-radius: 18px;
+  padding: 6px 28px;
+  width: 100%
+}
+
+.menu li {
+  display: flex;
+  justify-content: space-between;
+  padding: 18px 0;
+  border-bottom: 1px solid var(--line);
+  cursor: pointer
+}
+
+.menu li:last-child {
+  border: 0
+}
+
+.menu .out {
+  color: #e11d1d
+}
+
+/* Ajout */
+.add-title {
+  font-size: 44px;
+  font-weight: 600;
+  text-align: center;
+  margin-bottom: 24px
+}
+
+.form {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 28px 40px;
+  align-items: start
+}
+
+.photo {
+  position: relative;
+  overflow: hidden;
+  align-self: stretch;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  min-height: 340px;
+  background: var(--card);
+  border: 2px dashed var(--or);
+  border-radius: 20px;
+  cursor: pointer;
+  text-align: center
+}
+
+.photo span {
+  font-size: 42px
+}
+
+.photo b {
+  color: var(--or);
+  font-size: 20px
+}
+
+.lab {
+  display: block;
+  font-weight: 600;
+  font-size: 18px;
+  margin-bottom: 8px
+}
+
+.in,
+.line {
+  font: 400 15px Inter, sans-serif;
+  letter-spacing: normal;
+  width: 100%;
+  height: 46px;
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  background: var(--soft);
+  padding: 0 16px;
+  outline: 0
+}
+
+.in:focus,
+.line:focus-within {
+  border-color: var(--or)
+}
+
+.pair {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+  margin-top: 20px
+}
+
+.hd {
+  font-family: "Abril Fatface", serif;
+  font-weight: 400;
+  letter-spacing: 2px;
+  color: var(--tx)
+}
+
+.sub.hd {
+  color: var(--tx);
+  margin: 0
+}
+
+.plus {
+  background: none;
+  border: 0;
+  color: var(--or);
+  font-weight: 600;
+  letter-spacing: 1px;
+  cursor: pointer
+}
+
+.line {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-top: 12px
+}
+
+.line input {
+  flex: 1;
+  border: 0;
+  outline: 0;
+  background: none;
+  height: 100%
+}
+
+.publish {
+  grid-column: 1/-1;
+  max-width: 420px;
+  margin: 32px auto 0;
+  padding: 14px
+}
+
+@media(max-width:900px) {
+  .layout {
+    grid-template-columns: 1fr
+  }
+
+  .side {
+    position: static;
+    height: auto;
+    padding: 20px
+  }
+
+  .tagline {
+    margin-bottom: 16px
+  }
+
+  .side nav {
+    flex-direction: row;
+    flex-wrap: wrap
+  }
+
+  main {
+    padding: 24px 20px
+  }
+
+  .recipe,
+  .two,
+  .form {
+    grid-template-columns: 1fr
+  }
+
+  .brand-icon {
+    width: 34px;
+    height: 34px
+  }
+
+  .side nav a {
+    padding: 10px 14px;
+    font-size: 15px
+  }
+
+  .tagline {
+    margin-bottom: 16px
+  }
+}
+
+.empty {
+  grid-column: 1/-1;
+  padding: 60px 20px;
+  text-align: center;
+  color: var(--mu);
+  background: var(--card);
+  border-radius: 16px;
+  font-size: 17px
+}
+
+.search+.grid {
+  margin-top: 28px
+}
+
+.photo img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover
+}
+
+.hero img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 20px
+}
+
+.line input {
+  font: 400 15px Inter, sans-serif;
+  letter-spacing: normal
+}
+
+.add-title {
+  margin-top: 0
+}
+
+.chip.sel {
+  outline: 3px solid var(--chip-border);
+  outline-offset: 2px
+}
+
+/* Photos importées : elles restent dans leur cadre */
+.thumb,
+.hero {
+  position: relative;
+  overflow: hidden
+}
+
+.thumb img,
+.hero img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: inherit
+}
+
+.actions {
+  display: flex;
+  gap: 16px;
+  justify-content: center;
+  margin-top: 32px
+}
+
+.actions .btn {
+  margin: 0;
+  width: auto;
+  flex: 1;
+  max-width: 260px;
+  padding: 14px
+}
+
+.btn.cancel {
+  background: transparent;
+  color: var(--or2);
+  border: 2px solid var(--or)
+}
+
+.btn.cancel:hover {
+  background: var(--or);
+  color: #fff
+}
+
+.err {
+  color: #d11a1a;
+  text-align: center;
+  font-weight: 500;
+  min-height: 1.3em;
+  margin-top: 24px
+}
+
+.err+.actions {
+  margin-top: 8px
+}
+
+.actions .btn.publish {
+  margin: 0;
+  max-width: 260px
+}
+
+#jsErr {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 99;
+  background: #d11a1a;
+  color: #fff;
+  padding: 8px 16px;
+  font-size: 14px
+}
+
+.hint {
+  font-size: 14px;
+  color: var(--mu);
+  margin-top: 6px
+}
+
+/* Dark mode */
+body.night .side {
+  background: #1f1812;
+  border-right: 1px solid var(--line);
+  color: var(--or)
+}
+
+body.night .brand-icon {
+  color: var(--or)
+}
+
+body.night .side nav a {
+  color: var(--mu)
+}
+
+body.night .side nav a:hover {
+  background: #ffffff12
+}
+
+body.night .side nav a.active {
+  background: var(--card);
+  color: var(--or)
+}
+
+body.night .thumb {
+  background: #2f2519
+}
+
+body.night .by {
+  color: var(--or)
+}
+
+body.night .menu .out {
+  color: #ff6b6b
+}
+
+body.night .btn.cancel {
+  color: var(--or)
+}
+
+body.night .btn.cancel:hover {
+  color: #fff
+}
+
+/* Notifications + Help */
+.menu li span {
+  display: flex;
+  align-items: center
+}
+
+.badge {
+  background: var(--or);
+  color: #fff;
+  border-radius: 10px;
+  padding: 2px 8px;
+  font-size: 13px;
+  margin-right: 8px
+}
+
+.dlg {
+  margin: auto;
+  width: min(480px, 92vw);
+  max-height: 86vh;
+  border: 0;
+  border-radius: 20px;
+  background: var(--bg);
+  color: var(--tx);
+  padding: 0;
+  overflow: auto
+}
+
+.dlg::backdrop {
+  background: #000a
+}
+
+.dlg-in {
+  padding: 24px
+}
+
+.dlg-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 16px
+}
+
+.dlg-head h2 {
+  font-size: 22px;
+  font-weight: 600
+}
+
+.x {
+  background: none;
+  border: 0;
+  font-size: 20px;
+  cursor: pointer;
+  color: var(--mu)
+}
+
+.nlist {
+  list-style: none
+}
+
+.nlist li {
+  padding: 14px;
+  border-radius: 12px;
+  background: var(--card);
+  margin-bottom: 10px;
+  border-left: 4px solid transparent
+}
+
+.nlist li.new {
+  border-left-color: var(--or)
+}
+
+.nlist small {
+  display: block;
+  color: var(--mu);
+  margin-top: 4px
+}
+
+.dlg-foot {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 8px
+}
+
+.dlg-foot .btn {
+  width: auto;
+  padding: 10px 24px
+}
+
+.dlg details {
+  background: var(--card);
+  border-radius: 12px;
+  padding: 14px;
+  margin-bottom: 10px
+}
+
+.dlg summary {
+  font-weight: 600;
+  cursor: pointer
+}
+
+.dlg details p {
+  margin-top: 8px;
+  line-height: 1.6;
+  color: var(--mu)
+}
+
+.area {
+  height: 110px;
+  padding: 12px 16px;
+  resize: vertical;
+  margin-top: 8px
+}
+
+/* Login */
+[hidden] {
+  display: none !important
+}
+
+#auth {
+  display: none;
+  min-height: 100vh;
+  place-items: center;
+  padding: 24px
+}
+
+body.guest #auth {
+  display: grid
+}
+
+body.guest .layout {
+  display: none
+}
+
+.auth-card {
+  width: min(400px, 100%);
+  background: var(--card);
+  border-radius: 20px;
+  padding: 32px 28px;
+  text-align: center
+}
+
+.auth-card .brand-icon {
+  display: block;
+  margin: 0 auto 8px;
+  width: 56px;
+  height: 56px;
+  color: var(--or)
+}
+
+.auth-card .logo {
+  color: var(--or)
+}
+
+.auth-card .tagline {
+  color: var(--mu);
+  margin: 8px 0 20px
+}
+
+.auth-card .lab {
+  text-align: left;
+  margin: 12px 0 0;
+  font-size: 15px
+}
+
+.auth-card .in {
+  margin-top: 6px
+}
+
+.auth-card .err {
+  margin-top: 14px
+}
+
+.auth-card .btn {
+  margin-top: 0
+}
+
+.tabs {
+  display: flex;
+  gap: 8px
+}
+
+.tab {
+  flex: 1;
+  padding: 10px;
+  border-radius: 14px;
+  border: 2px solid var(--or);
+  background: none;
+  color: var(--or2);
+  font-weight: 600;
+  cursor: pointer
+}
+
+.tab.sel {
+  background: var(--or);
+  color: #fff
+}
+
+/* Supprimer une recette (seulement les siennes) */
+.btn.del {
+  width: auto;
+  padding: 12px 28px;
+  margin-top: 12px;
+  background: transparent;
+  color: #d11a1a;
+  border: 2px solid #d11a1a
+}
+
+.btn.del:hover {
+  background: #d11a1a;
+  color: #fff
+}
+
+body.night .btn.del {
+  color: #ff6b6b;
+  border-color: #ff6b6b
+}
+
+body.night .btn.del:hover {
+  background: #ff6b6b;
+  color: #181310
+}
+
+/* Modifier une recette (propriétaire ou admin) */
+.btn.edit {
+  width: auto;
+  padding: 12px 28px;
+  margin-top: 12px;
+  background: transparent;
+  color: var(--or2);
+  border: 2px solid var(--or)
+}
+
+.btn.edit:hover {
+  background: var(--or);
+  color: #fff
+}
+
+body.night .btn.edit {
+  color: var(--or)
+}
+
+body.night .btn.edit:hover {
+  color: #fff
+}
