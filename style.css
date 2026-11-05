@@ -28,7 +28,7 @@ body.night {
 }
 
 body {
-  font-family: Inter, sans-serif;
+  font-family: Inter, "Segoe UI", Tahoma, sans-serif;
   background: var(--bg);
   color: var(--tx)
 }
@@ -471,6 +471,10 @@ hr {
   color: #e11d1d
 }
 
+.menu em {
+  font-style: normal
+}
+
 /* Ajout */
 .add-title {
   font-size: 44px;
@@ -519,9 +523,14 @@ hr {
   margin-bottom: 8px
 }
 
+.lab>span {
+  display: block;
+  margin-bottom: 8px
+}
+
 .in,
 .line {
-  font: 400 15px Inter, sans-serif;
+  font: 400 15px Inter, "Segoe UI", Tahoma, sans-serif;
   letter-spacing: normal;
   width: 100%;
   height: 46px;
@@ -662,7 +671,7 @@ hr {
 }
 
 .line input {
-  font: 400 15px Inter, sans-serif;
+  font: 400 15px Inter, "Segoe UI", Tahoma, sans-serif;
   letter-spacing: normal
 }
 
@@ -956,9 +965,13 @@ body.guest .layout {
 }
 
 .auth-card .lab {
-  text-align: left;
+  text-align: start;
   margin: 12px 0 0;
   font-size: 15px
+}
+
+.auth-card .lab>span {
+  margin-bottom: 0
 }
 
 .auth-card .in {
@@ -1040,4 +1053,90 @@ body.night .btn.edit {
 
 body.night .btn.edit:hover {
   color: #fff
+}
+
+/* ===== Sélecteur de langue ===== */
+.langs {
+  display: flex;
+  gap: 6px;
+  margin-top: 24px
+}
+
+.auth-card .langs {
+  justify-content: center;
+  margin-top: 18px
+}
+
+.langs button {
+  background: none;
+  border: 2px solid currentColor;
+  color: inherit;
+  border-radius: 14px;
+  padding: 6px 12px;
+  font-weight: 600;
+  font-size: 14px;
+  cursor: pointer
+}
+
+.side .langs button.sel {
+  background: var(--bg);
+  color: var(--or2);
+  border-color: var(--bg)
+}
+
+.auth-card .langs button {
+  color: var(--or2)
+}
+
+.auth-card .langs button.sel {
+  background: var(--or);
+  color: #fff;
+  border-color: var(--or)
+}
+
+body.night .side .langs button.sel {
+  background: var(--card);
+  color: var(--or);
+  border-color: var(--card)
+}
+
+.photo small {
+  padding: 0 12px
+}
+
+/* ===== Arabe : droite → gauche ===== */
+html[dir="rtl"] .chip,
+html[dir="rtl"] .hd,
+html[dir="rtl"] .rtitle,
+html[dir="rtl"] .title {
+  font-family: Inter, "Segoe UI", Tahoma, sans-serif;
+  font-weight: 600
+}
+
+html[dir="rtl"] *:not(.logo) {
+  letter-spacing: 0 !important
+}
+
+html[dir="rtl"] .steps {
+  padding-left: 0;
+  padding-right: 24px
+}
+
+html[dir="rtl"] .nlist li {
+  border-left: 0;
+  border-right: 4px solid transparent
+}
+
+html[dir="rtl"] .nlist li.new {
+  border-right-color: var(--or)
+}
+
+html[dir="rtl"] .badge {
+  margin-right: 0;
+  margin-left: 8px
+}
+
+html[dir="rtl"] body.night .side {
+  border-right: 0;
+  border-left: 1px solid var(--line)
 }

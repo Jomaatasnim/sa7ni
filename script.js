@@ -99,15 +99,15 @@ function recompute(i) {                              // moyenne = origine + ma n
   R[i][2] = Math.round((avg * n + mine) / (n + 1) * 10) / 10;
 }
 Object.keys(myRates).forEach(i => R[i] ? recompute(i) : delete myRates[i]);
-const rt = r => r[3] ? `${r[2]} · ${r[3]} review${r[3] > 1 ? "s" : ""}` : "New";
+const rt = r => r[3] ? `${r[2]} · ${r[3]} ${t(r[3] > 1 ? "reviewN" : "review1")}` : t("new");
 
 // Sécurité : tout texte venant de l'utilisateur passe par esc() ; l'image a un repli emoji si elle ne charge pas
 const pic = e => /^(data:image\/|images\/)/.test(e)
   ? `<img src="${esc(e)}" alt="" onerror="this.replaceWith('🍽️')">`
   : esc(e);
 const card = r => `<article class="card"><div class="thumb">${pic(r[4])}</div><h3>${esc(r[0])}</h3>
-  <p class="author">By ${esc(r[1])}</p><p class="rating"><i>★</i> ${rt(r)}</p>
-  <a href="#recipe/${R.indexOf(r)}" class="btn">Recipe</a></article>`;
+  <p class="author">${t("by")} ${esc(r[1])}</p><p class="rating"><i>★</i> ${rt(r)}</p>
+  <a href="#recipe/${R.indexOf(r)}" class="btn">${t("recipe")}</a></article>`;
 const mini = r => `<a href="#recipe/${R.indexOf(r)}" class="card m"><div class="thumb">${pic(r[4])}</div><h3>${esc(r[0])}</h3>
   <p class="rating"><i>★</i> ${rt(r)}</p></a>`;
 const fill = (id, list, fn) => $(id).innerHTML = list.map(fn).join("");
@@ -115,19 +115,19 @@ const fill = (id, list, fn) => $(id).innerHTML = list.map(fn).join("");
 // Profile → My Recipes : seulement les recettes publiées par l'utilisateur
 const drawMine = () => {
   const mine = R.slice(BASE);
-  $("#mine").innerHTML = mine.length ? mine.map(mini).join("") : empty("You haven't published any recipe yet.");
+  $("#mine").innerHTML = mine.length ? mine.map(mini).join("") : empty(t("noMine"));
   $("#recipesCount").textContent = mine.length;
 };
 drawMine();
 
 // Home : affiche les recettes (filtre par recherche + catégorie)
 let activeCat = "";                                  // catégorie choisie sur Home ("" = toutes)
-const catOf = chip => chip.textContent.trim().split(" ")[0];
+const catOf = chip => chip.dataset.cat;
 function drawPopular() {
   const v = $("#q").value.toLowerCase();
   const list = R.filter(r => !r.hid && r[0].toLowerCase().includes(v) && (!activeCat || r[5] === activeCat));
-  $("#popTitle").textContent = activeCat || "Popular";
-  $("#popular").innerHTML = list.length ? list.map(card).join("") : empty("No recipes found.");
+  $("#popTitle").textContent = activeCat ? t("catn." + activeCat) : t("popular");
+  $("#popular").innerHTML = list.length ? list.map(card).join("") : empty(t("noRecipes"));
 }
 $("#q").addEventListener("input", drawPopular);
 
@@ -137,15 +137,13 @@ const drawStars = () => $("#stars").innerHTML = [1, 2, 3, 4, 5].map(n =>
   `<button data-n="${n}">${n <= note ? "★" : "☆"}</button>`).join("");
 drawStars();
 function showRateMsg(i) {
-  $("#rateMsg").textContent = myRates[i]
-    ? `Thanks! You rated this recipe ${myRates[i]}/5. Tap the same star to remove your review.`
-    : "Tap a star to rate this recipe.";
+  $("#rateMsg").textContent = myRates[i] ? t("rated", myRates[i]) : t("rateTap");
 }
 $("#stars").onclick = e => {
   const n = +e.target.dataset.n;
   if (!n) return;
   if (myRates[cur] === n) delete myRates[cur];
-  else { myRates[cur] = n; addNotif(`You rated “${R[cur][0]}” ${n}/5 ⭐`); }
+  else { myRates[cur] = n; addNotif(t("ratedNotif", R[cur][0], n)); }
   try { localStorage.setItem(K("rates"), JSON.stringify(myRates)); } catch (_) { }
   recompute(cur);
   note = myRates[cur] || 0; drawStars(); showRateMsg(cur);
@@ -159,29 +157,29 @@ favs = favs.filter(i => R[i]);
 function setFavBtn() {
   const on = favs.includes(cur);
   $("#favBtn").classList.toggle("on", on);
-  $("#favBtn").textContent = on ? "♥ In Favorites" : "Add To Favorites";
+  $("#favBtn").textContent = on ? t("fav.on") : t("fav.add");
 }
 function drawFavs() {
   const v = $("#qf").value.toLowerCase();
   const vf = favs.filter(i => !R[i].hid);
   const list = vf.map(i => R[i]).filter(r => r[0].toLowerCase().includes(v));
   $("#favs").innerHTML = list.length ? list.map(card).join("")
-    : empty(vf.length ? "No recipe matches your search." : "No favorites yet. Open a recipe and tap “Add To Favorites”.");
-  $("#saved").innerHTML = vf.length ? vf.map(i => mini(R[i])).join("") : empty("Nothing saved yet.");
+    : empty(vf.length ? t("noMatch") : t("noFavs"));
+  $("#saved").innerHTML = vf.length ? vf.map(i => mini(R[i])).join("") : empty(t("nothingSaved"));
   $("#savedCount").textContent = vf.length;
   $("#reviewsCount").textContent = Object.keys(myRates).length;
 }
 $("#qf").addEventListener("input", drawFavs);
 $("#favBtn").onclick = () => {
-  if (!favs.includes(cur)) addNotif(`“${R[cur][0]}” added to your favorites ♥`);
+  if (!favs.includes(cur)) addNotif(t("favAdded", R[cur][0]));
   favs = favs.includes(cur) ? favs.filter(i => i !== cur) : [...favs, cur];
   try { localStorage.setItem(K("favs"), JSON.stringify(favs)); } catch (e) { }
   setFavBtn(); drawFavs();
 };
 
 // Formulaire : ajouter lignes
-const line = (ph, v = "") => `<div class="line"><span>👨‍🍳</span><input placeholder="${ph}" value="${esc(v)}"></div>`;
-const holders = { ing: "e.g Chicken", step: "e.g prepare the ingredients" };
+const line = (ph, v = "") => `<div class="line"><span>👨‍🍳</span><input placeholder="${esc(ph)}" value="${esc(v)}"></div>`;
+const holders = { ing: t("phIng"), step: t("phStep") };
 for (const k in holders) { $("#" + k).innerHTML = line(holders[k]).repeat(3); }
 document.querySelectorAll("[data-add]").forEach(b => b.onclick = () =>
   $("#" + b.dataset.add).insertAdjacentHTML("beforeend", line(holders[b.dataset.add])));
@@ -247,9 +245,9 @@ function showPhoto(src) {
 function readPhoto(f) {
   if (!f) return;
   err("");
-  if (f.type && !f.type.startsWith("image/")) { err("Choose an image file (JPG, PNG or WebP)."); return; }
+  if (f.type && !f.type.startsWith("image/")) { err(t("errImg")); return; }
   const rd = new FileReader();
-  rd.onerror = () => err("The image couldn't be read. Try another one.");
+  rd.onerror = () => err(t("errRead"));
   rd.onload = () => {
     const raw = rd.result, im = new Image();
     im.onload = () => {                       // réduit les grandes photos à 1000px
@@ -262,7 +260,7 @@ function readPhoto(f) {
       let out; try { out = cv.toDataURL("image/jpeg", 0.85); } catch (e) { out = raw; }
       showPhoto(out);
     };
-    im.onerror = () => err("This image format isn't supported. Use JPG, PNG or WebP.");
+    im.onerror = () => err(t("errFormat"));
     im.src = raw;
   };
   rd.readAsDataURL(f);
@@ -285,8 +283,8 @@ function resetAdd() {
   showPhoto("");
   for (const k in holders) $("#" + k).innerHTML = line(holders[k]).repeat(3);
   editing = null;
-  $("#add .add-title").textContent = "Add Recipe";
-  $("#add .publish").textContent = "Publish recipe";
+  $("#add .add-title").textContent = t("addRecipe");
+  $("#add .publish").textContent = t("publish");
   err("");
 }
 $("#cancelAdd").addEventListener("click", () => {
@@ -296,12 +294,12 @@ $("#cancelAdd").addEventListener("click", () => {
 });
 
 $("#add .publish").addEventListener("click", () => {
-  const [t, time, serv] = document.querySelectorAll("#add .in");
-  const title = t.value.trim();
-  if (!title) { err("Enter a recipe title before publishing."); t.focus(); return; }
+  const [ti, time, serv] = document.querySelectorAll("#add .in");
+  const title = ti.value.trim();
+  if (!title) { err(t("errTitle")); ti.focus(); return; }
   const vals = id => [...document.querySelectorAll(`#${id} input`)].map(i => i.value.trim()).filter(Boolean);
   const sel = document.querySelector("#add .chip.sel");
-  if (!sel) { err("Choose a category before publishing."); return; }
+  if (!sel) { err(t("errCat")); return; }
   const tm = time.value.trim() || "—", sv = serv.value.trim() || "—", ing = vals("ing"), steps = vals("step");
   if (editing !== null) {                            // ----- enregistrer une modification -----
     const i = editing, rec = R[i];
@@ -313,7 +311,7 @@ $("#add .publish").addEventListener("click", () => {
     } else {                                         // recette du site (admin)
       adm.edits[rec.key] = { t: title, p: rec[4], c: rec[5], d: D[i] }; saveAdm();
     }
-    addNotif(`Recipe “${title}” updated ✏️`);
+    addNotif(t("updated", title));
     editing = null; resetAdd(); drawMine(); drawPopular(); drawFavs();
     location.hash = "#recipe/" + i;
     return;
@@ -324,7 +322,7 @@ $("#add .publish").addEventListener("click", () => {
   mineSaved.push({ r, d });
   try { localStorage.setItem(K("mine"), JSON.stringify(mineSaved)); } catch (e) { }
   drawMine();
-  addNotif(`Your recipe “${title}” is published 🎉`);
+  addNotif(t("published", title));
   resetAdd();
   location.hash = "#recipe/" + (R.length - 1);
 });
@@ -334,21 +332,21 @@ const SUPPORT_EMAIL = "tasnimjomaa4@gmail.com";     // ← badlou b email 7a9i9i
 let notifs = [];
 try {
   const raw = localStorage.getItem(K("notifs"));
-  notifs = raw === null ? [{ t: `Welcome to SA7NI, ${ME.name} 👋 Publish your first recipe!`, d: Date.now(), r: 0 }] : JSON.parse(raw) || [];
+  notifs = raw === null ? [{ t: t("welcome", ME.name), d: Date.now(), r: 0 }] : JSON.parse(raw) || [];
 } catch (e) { }
 const saveN = () => { try { localStorage.setItem(K("notifs"), JSON.stringify(notifs)); } catch (e) { } };
 const ago = ms => {
   const m = Math.floor((Date.now() - ms) / 60000);
-  return m < 1 ? "Just now" : m < 60 ? m + " min ago" : m < 1440 ? Math.floor(m / 60) + " h ago" : Math.floor(m / 1440) + " d ago";
+  return m < 1 ? t("justNow") : m < 60 ? t("minAgo", m) : m < 1440 ? t("hAgo", Math.floor(m / 60)) : t("dAgo", Math.floor(m / 1440));
 };
 function drawNotifs() {
   $("#nList").innerHTML = notifs.length
     ? notifs.map(n => `<li class="${n.r ? "" : "new"}">${esc(n.t)}<small>${ago(n.d)}</small></li>`).join("")
-    : empty("No notifications.");
+    : empty(t("noNotif"));
   const u = notifs.filter(n => !n.r).length;
   $("#notifBadge").textContent = u; $("#notifBadge").hidden = !u;
 }
-function addNotif(t) { notifs.unshift({ t, d: Date.now(), r: 0 }); notifs = notifs.slice(0, 30); saveN(); drawNotifs(); }
+function addNotif(msg) { notifs.unshift({ t: msg, d: Date.now(), r: 0 }); notifs = notifs.slice(0, 30); saveN(); drawNotifs(); }
 saveN(); drawNotifs();
 
 const nd = $("#notifDlg"), hd = $("#helpDlg");
@@ -362,8 +360,8 @@ $("#nClear").onclick = () => { notifs = []; saveN(); drawNotifs(); };
 $("#helpBtn").onclick = () => { $("#helpErr").textContent = ""; hd.showModal(); };
 $("#helpSend").onclick = () => {
   const m = $("#helpMsg").value.trim();
-  if (!m) { $("#helpErr").textContent = "Write your message first."; return; }
-  location.href = `mailto:${SUPPORT_EMAIL}?subject=${encodeURIComponent("SA7NI support")}&body=${encodeURIComponent(m)}`;
+  if (!m) { $("#helpErr").textContent = t("writeMsg"); return; }
+  location.href = `mailto:${SUPPORT_EMAIL}?subject=${encodeURIComponent(t("supportSubject"))}&body=${encodeURIComponent(m)}`;
   $("#helpMsg").value = ""; hd.close();
 };
 
@@ -372,7 +370,7 @@ $("#pName").textContent = ME.name;
 if (isAdmin) $("#pName").insertAdjacentHTML("beforeend", ' <span class="badge">Admin</span>');
 $("#adminReset").hidden = !isAdmin;
 $("#adminReset").onclick = () => {
-  if (!confirm("Restore all the recipes you deleted or edited as admin?")) return;
+  if (!confirm(t("confirmRestore"))) return;
   try { localStorage.removeItem("sa7ni_admin"); } catch (e) { }
   location.reload();
 };
@@ -385,7 +383,7 @@ $("#logoutBtn").onclick = () => {
 // ===== Supprimer une recette : ses propres recettes, ou n'importe laquelle si on est admin =====
 $("#delBtn").onclick = () => {
   const i = cur;
-  if (!R[i] || !(i >= BASE || isAdmin) || !confirm(`Delete “${R[i][0]}”? ${i >= BASE ? "This can't be undone." : "(Admin) You can restore it from your Profile."}`)) return;
+  if (!R[i] || !(i >= BASE || isAdmin) || !confirm(t(i >= BASE ? "confirmUser" : "confirmAdmin", R[i][0]))) return;
   const title = R[i][0];
   if (i >= BASE) {                                   // recette de l'utilisateur : suppression définitive
     R.splice(i, 1); D.splice(i, 1); baseRate.splice(i, 1); mineSaved.splice(i - BASE, 1);
@@ -403,7 +401,7 @@ $("#delBtn").onclick = () => {
     if (!adm.hidden.includes(R[i].key)) adm.hidden.push(R[i].key);
     saveAdm(); R[i].hid = true;
   }
-  addNotif(`Recipe “${title}” deleted 🗑️`);
+  addNotif(t("deleted", title));
   drawMine(); drawPopular(); drawFavs();
   location.hash = i >= BASE ? "#profile" : "#home";
 };
@@ -419,16 +417,16 @@ $("#editBtn").onclick = () => {
   const i = cur;
   if (!R[i] || !(i >= BASE || isAdmin)) return;
   const r = R[i], d = D[i];
-  const [t, time, serv] = document.querySelectorAll("#add .in");
-  t.value = r[0];
+  const [ti, time, serv] = document.querySelectorAll("#add .in");
+  ti.value = r[0];
   time.value = d[0] === "—" ? "" : d[0];
   serv.value = d[1] === "—" ? "" : d[1];
   addChips.forEach(x => x.classList.toggle("sel", catOf(x) === r[5]));
   showPhoto(/^(data:image\/|images\/)/.test(r[4]) ? r[4] : "");
   $("#ing").innerHTML = d[2].length ? d[2].map(x => line(holders.ing, x)).join("") : line(holders.ing).repeat(3);
   $("#step").innerHTML = d[3].length ? d[3].map(s => line(holders.step, stepText(s))).join("") : line(holders.step).repeat(3);
-  $("#add .add-title").textContent = "Edit Recipe";
-  $("#add .publish").textContent = "Save changes";
+  $("#add .add-title").textContent = t("editRecipe");
+  $("#add .publish").textContent = t("saveChanges");
   err("");
   editing = i;
   location.hash = "#add";
