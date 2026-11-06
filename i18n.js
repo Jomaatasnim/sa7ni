@@ -1,11 +1,11 @@
 // Langues du site : en / fr / ar. Le choix est mémorisé dans le navigateur.
 (() => {
     const T = {
-        // Navigation
-        "nav.home": ["🏠 Home", "🏠 Accueil", "🏠 الرئيسية"],
-        "nav.fav": ["♡ Favorites", "♡ Favoris", "♡ المفضلة"],
-        "nav.add": ["＋ Add", "＋ Ajouter", "＋ إضافة"],
-        "nav.profile": ["👤 Profile", "👤 Profil", "👤 الملف الشخصي"],
+        // Navigation (les icônes sont des SVG dans index.html)
+        "nav.home": ["Home", "Accueil", "الرئيسية"],
+        "nav.fav": ["Favorites", "Favoris", "المفضلة"],
+        "nav.add": ["Add", "Ajouter", "إضافة"],
+        "nav.profile": ["Profile", "Profil", "الملف الشخصي"],
         // Home
         "home.search": ["search recipes...", "rechercher une recette...", "ابحث عن وصفة..."],
         "cat.All": ["All 🍽️", "Tout 🍽️", "الكل 🍽️"],
@@ -22,7 +22,7 @@
         // Recette
         "back": ["← Back", "← Retour", "→ رجوع"],
         "by": ["By", "Par", "بواسطة"],
-        "rate.this": ["⭐ Rate this recipe", "⭐ Notez cette recette", "⭐ قيّم هذه الوصفة"],
+        "rate.this": ["Rate this recipe", "Notez cette recette", "قيّم هذه الوصفة"],
         "rate.tap": ["Tap a star to rate this recipe.", "Appuyez sur une étoile pour noter cette recette.", "اضغط على نجمة لتقييم هذه الوصفة."],
         "rate.thanks": ["Thanks! You rated this recipe {n}/5. Tap the same star to remove your review.",
             "Merci ! Vous avez noté cette recette {n}/5. Appuyez sur la même étoile pour retirer votre avis.",
@@ -51,11 +51,11 @@
         "my.recipes": ["My Recipes", "Mes recettes", "وصفاتي"],
         "saved.recipes": ["Saved Recipes", "Recettes enregistrées", "الوصفات المحفوظة"],
         "seeAll": ["See All →", "Voir tout →", "عرض الكل ←"],
-        "menu.notif": ["🔔 Notifications", "🔔 Notifications", "🔔 الإشعارات"],
-        "menu.dark": ["🌙 Dark Mode", "🌙 Mode sombre", "🌙 الوضع الليلي"],
-        "menu.help": ["❔ Help & Support", "❔ Aide et support", "❔ المساعدة والدعم"],
-        "menu.admin": ["🛠️ Admin: restore deleted / edited recipes", "🛠️ Admin : restaurer les recettes supprimées / modifiées", "🛠️ المشرف: استعادة الوصفات المحذوفة / المعدّلة"],
-        "menu.logout": ["⎋ Log Out", "⎋ Déconnexion", "⎋ تسجيل الخروج"],
+        "menu.notif": ["Notifications", "Notifications", "الإشعارات"],
+        "menu.dark": ["Dark Mode", "Mode sombre", "الوضع الليلي"],
+        "menu.help": ["Help & Support", "Aide et support", "المساعدة والدعم"],
+        "menu.admin": ["Admin: restore deleted / edited recipes", "Admin : restaurer les recettes supprimées / modifiées", "المشرف: استعادة الوصفات المحذوفة / المعدّلة"],
+        "menu.logout": ["Log Out", "Déconnexion", "تسجيل الخروج"],
         "admin": ["Admin", "Admin", "مشرف"],
         "admin.confirm": ["Restore all the recipes you deleted or edited as admin?", "Restaurer toutes les recettes que vous avez supprimées ou modifiées en tant qu'admin ?", "هل تريد استعادة كل الوصفات التي حذفتها أو عدّلتها كمشرف؟"],
         "del.confirm": ["Delete “{t}”? This can't be undone.", "Supprimer « {t} » ? Cette action est irréversible.", "هل تريد حذف «{t}»؟ لا يمكن التراجع عن هذا الإجراء."],
@@ -75,9 +75,9 @@
         "add.titlePh": ["e.g Koksi bedjej", "ex. Koksi bedjej", "مثال: كسكسي بالدجاج"],
         "add.category": ["Category", "Catégorie", "الفئة"],
         "add.time": ["Preparing Time", "Temps de préparation", "وقت التحضير"],
-        "add.timePh": ["🕒 e.g 30 min", "🕒 ex. 30 min", "🕒 مثال: 30 دقيقة"],
+        "add.timePh": ["e.g 30 min", "ex. 30 min", "مثال: 30 دقيقة"],
         "add.serv": ["Servings", "Portions", "عدد الأشخاص"],
-        "add.servPh": ["👥 e.g 4 Persons", "👥 ex. 4 personnes", "👥 مثال: 4 أشخاص"],
+        "add.servPh": ["e.g 4 Persons", "ex. 4 personnes", "مثال: 4 أشخاص"],
         "add.addIng": ["+ Add Ingredient", "+ Ajouter un ingrédient", "+ إضافة مكوّن"],
         "add.addStep": ["+ Add Step", "+ Ajouter une étape", "+ إضافة خطوة"],
         "ph.ing": ["e.g Chicken", "ex. Poulet", "مثال: دجاج"],

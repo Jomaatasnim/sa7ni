@@ -10,10 +10,30 @@
     rel="stylesheet">
   <link rel="icon"
     href="data:image/svg+xml,%3Csvg%20viewBox%3D%220%200%2064%2064%22%20fill%3D%22none%22%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%3E%3Crect%20width%3D%2264%22%20height%3D%2264%22%20rx%3D%2214%22%20fill%3D%22%23fff6e5%22/%3E%20%20%20%20%20%20%3Ccircle%20cx%3D%2232%22%20cy%3D%2232%22%20r%3D%2218%22%20stroke%3D%22%23ff9411%22%20stroke-width%3D%224%22/%3E%20%20%20%20%20%20%3Ccircle%20cx%3D%2232%22%20cy%3D%2232%22%20r%3D%2211.5%22%20fill%3D%22%23ff9411%22/%3E%20%20%20%20%20%20%3Cpath%20d%3D%22M4%206v13c0%203%202%205%205%205s5-2%205-5V6M9%206v52%22%20stroke%3D%22%23ff9411%22%20stroke-width%3D%223.2%22%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22/%3E%20%20%20%20%20%20%3Cpath%20d%3D%22M55%206c-5%204-7%2013-6%2024h6z%22%20fill%3D%22%23ff9411%22/%3E%20%20%20%20%20%20%3Cpath%20d%3D%22M55%2030v28%22%20stroke%3D%22%23ff9411%22%20stroke-width%3D%223.2%22%20stroke-linecap%3D%22round%22/%3E%20%20%20%20%3C/svg%3E">
-  <link rel="stylesheet" href="style.css?v=16">
+  <link rel="stylesheet" href="style.css?v=17">
 </head>
 
 <body class="guest">
+
+  <!-- Icônes SVG (utilisées partout avec <svg class="ic"><use href="#i-..."/></svg>) -->
+  <svg width="0" height="0" style="position:absolute" aria-hidden="true">
+    <symbol id="i-home" viewBox="0 0 24 24"><path d="M3 11l9-8 9 8" /><path d="M5 10v10h5v-6h4v6h5V10" /></symbol>
+    <symbol id="i-heart" viewBox="0 0 24 24"><path d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.7l-1-1.1a5.5 5.5 0 0 0-7.8 7.8l1 1L12 21l7.8-7.6 1-1a5.5 5.5 0 0 0 0-7.8z" /></symbol>
+    <symbol id="i-plus" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14" /></symbol>
+    <symbol id="i-user" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4" /><path d="M4 21c0-4 4-6 8-6s8 2 8 6" /></symbol>
+    <symbol id="i-search" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7" /><path d="M21 21l-4.3-4.3" /></symbol>
+    <symbol id="i-star" viewBox="0 0 24 24"><path d="M12 2l3.1 6.3 6.9 1-5 4.9 1.2 6.9L12 17.8 5.8 21.1 7 14.2 2 9.3l6.9-1z" /></symbol>
+    <symbol id="i-clock" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9" /><path d="M12 7v5l3 2" /></symbol>
+    <symbol id="i-users" viewBox="0 0 24 24"><circle cx="9" cy="8" r="3.5" /><path d="M2 20c0-3.5 3-5.5 7-5.5s7 2 7 5.5" /><path d="M16 4.5a3.5 3.5 0 0 1 0 7M18 14.8c2.4.6 4 2.2 4 5.2" /></symbol>
+    <symbol id="i-camera" viewBox="0 0 24 24"><path d="M3 8a2 2 0 0 1 2-2h2l2-2h6l2 2h2a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" /><circle cx="12" cy="13" r="4" /></symbol>
+    <symbol id="i-bell" viewBox="0 0 24 24"><path d="M6 8a6 6 0 0 1 12 0c0 7 3 8 3 8H3s3-1 3-8" /><path d="M10.3 20a2 2 0 0 0 3.4 0" /></symbol>
+    <symbol id="i-moon" viewBox="0 0 24 24"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z" /></symbol>
+    <symbol id="i-help" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9" /><path d="M9.5 9a2.5 2.5 0 0 1 5 .5c0 1.7-2.5 2-2.5 3.5M12 17h.01" /></symbol>
+    <symbol id="i-shield" viewBox="0 0 24 24"><path d="M12 3l8 3v6c0 5-3.5 8-8 9-4.5-1-8-4-8-9V6z" /></symbol>
+    <symbol id="i-logout" viewBox="0 0 24 24"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4M16 17l5-5-5-5M21 12H9" /></symbol>
+    <symbol id="i-chef" viewBox="0 0 24 24"><path d="M7 14a4 4 0 1 1 1-7.8 4 4 0 0 1 8 0A4 4 0 1 1 17 14v6H7z" /><path d="M7 17h10" /></symbol>
+  </svg>
+
   <div class="layout">
 
     <aside class="side">
@@ -31,10 +51,10 @@
       </div>
       <p class="tagline">Ija menna w 4ou9 l benna</p>
       <nav>
-        <a href="#home" data-nav="home" data-i="nav.home"></a>
-        <a href="#favorites" data-nav="favorites" data-i="nav.fav"></a>
-        <a href="#add" data-nav="add" data-i="nav.add"></a>
-        <a href="#profile" data-nav="profile" data-i="nav.profile"></a>
+        <a href="#home" data-nav="home"><svg class="ic"><use href="#i-home" /></svg><span data-i="nav.home"></span></a>
+        <a href="#favorites" data-nav="favorites"><svg class="ic"><use href="#i-heart" /></svg><span data-i="nav.fav"></span></a>
+        <a href="#add" data-nav="add"><svg class="ic"><use href="#i-plus" /></svg><span data-i="nav.add"></span></a>
+        <a href="#profile" data-nav="profile"><svg class="ic"><use href="#i-user" /></svg><span data-i="nav.profile"></span></a>
       </nav>
       <div class="langs" role="group" aria-label="Language">
         <button type="button" data-lang="en">EN</button>
@@ -46,7 +66,8 @@
     <main>
       <!-- HOME -->
       <section id="home" class="view">
-        <label class="search"><span>🔍</span><input id="q" type="search" data-i-ph="home.search"></label>
+        <label class="search"><svg class="ic"><use href="#i-search" /></svg><input id="q" type="search"
+            data-i-ph="home.search"></label>
         <div class="chips">
           <button class="chip sel" data-all data-i="cat.All"></button>
           <button class="chip" data-cat="Breakfast" data-i="cat.Breakfast"></button>
@@ -67,11 +88,11 @@
           <div>
             <h2 class="rtitle" id="rTitle"></h2>
             <p class="by"><span data-i="by"></span> <b id="rBy"></b></p>
-            <p class="meta">⭐ <span id="rRate"></span></p>
-            <p class="meta">🕒 <span id="rTime"></span></p>
-            <p class="meta">👥 <span id="rServ"></span></p>
+            <p class="meta"><svg class="ic"><use href="#i-star" /></svg><span id="rRate"></span></p>
+            <p class="meta"><svg class="ic"><use href="#i-clock" /></svg><span id="rTime"></span></p>
+            <p class="meta"><svg class="ic"><use href="#i-users" /></svg><span id="rServ"></span></p>
             <hr>
-            <p class="meta" data-i="rate.this"></p>
+            <p class="meta"><svg class="ic"><use href="#i-star" /></svg><span data-i="rate.this"></span></p>
             <div class="stars" id="stars"></div>
             <p class="hint" id="rateMsg"></p>
             <button class="btn fav" id="favBtn" data-i="fav.add"></button>
@@ -95,7 +116,8 @@
       <!-- FAVORITES -->
       <section id="favorites" class="view">
         <h2 class="title dark" data-i="favorites"></h2>
-        <label class="search"><span>🔍</span><input id="qf" type="search" data-i-ph="home.search"></label>
+        <label class="search"><svg class="ic"><use href="#i-search" /></svg><input id="qf" type="search"
+            data-i-ph="home.search"></label>
         <div class="grid" id="favs"></div>
       </section>
 
@@ -122,12 +144,17 @@
         </div>
         <div class="grid mini" id="saved"></div>
         <ul class="menu">
-          <li id="notifBtn"><span data-i="menu.notif"></span><span><b id="notifBadge" class="badge" hidden>0</b><span
+          <li id="notifBtn"><span class="mi"><svg class="ic"><use href="#i-bell" /></svg><span
+                data-i="menu.notif"></span></span><span><b id="notifBadge" class="badge" hidden>0</b><span
                 class="chev">›</span></span></li>
-          <li id="dark"><span data-i="menu.dark"></span><span class="chev">›</span></li>
-          <li id="helpBtn"><span data-i="menu.help"></span><span class="chev">›</span></li>
-          <li id="adminReset" hidden><span data-i="menu.admin"></span><span class="chev">›</span></li>
-          <li class="out" id="logoutBtn"><span data-i="menu.logout"></span><span class="chev">›</span></li>
+          <li id="dark"><span class="mi"><svg class="ic"><use href="#i-moon" /></svg><span
+                data-i="menu.dark"></span></span><span class="chev">›</span></li>
+          <li id="helpBtn"><span class="mi"><svg class="ic"><use href="#i-help" /></svg><span
+                data-i="menu.help"></span></span><span class="chev">›</span></li>
+          <li id="adminReset" hidden><span class="mi"><svg class="ic"><use href="#i-shield" /></svg><span
+                data-i="menu.admin"></span></span><span class="chev">›</span></li>
+          <li class="out" id="logoutBtn"><span class="mi"><svg class="ic"><use href="#i-logout" /></svg><span
+                data-i="menu.logout"></span></span><span class="chev">›</span></li>
         </ul>
       </section>
 
@@ -135,8 +162,8 @@
       <section id="add" class="view">
         <h2 class="add-title" data-i="add.heading"></h2>
         <div class="form">
-          <label class="photo"><span>📷</span><b data-i="add.photo"></b><small data-i="add.photoHint"></small><input
-              type="file" accept="image/*" hidden></label>
+          <label class="photo"><svg class="ic"><use href="#i-camera" /></svg><b data-i="add.photo"></b><small
+              data-i="add.photoHint"></small><input type="file" accept="image/*" hidden></label>
           <div class="fields">
             <label class="lab"><span data-i="add.title"></span><input class="in" data-i-ph="add.titlePh"></label>
             <p class="lab" data-i="add.category"></p>
@@ -250,7 +277,7 @@
     </div>
   </dialog>
 
-  <script src="i18n.js?v=16"></script>
+  <script src="i18n.js?v=17"></script>
   <script src="auth.js?v=16"></script>
 </body>
 

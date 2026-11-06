@@ -208,7 +208,7 @@ $("#favBtn").onclick = () => {
 };
 
 // Formulaire : ajouter lignes
-const line = (ph, v = "") => `<div class="line"><span>👨‍🍳</span><input placeholder="${esc(ph)}" value="${esc(v)}"></div>`;
+const line = (ph, v = "") => `<div class="line"><svg class="ic"><use href="#i-chef"/></svg><input placeholder="${esc(ph)}" value="${esc(v)}"></div>`;
 const holders = { get ing() { return t("ph.ing"); }, get step() { return t("ph.step"); } };
 for (const k in holders) { $("#" + k).innerHTML = line(holders[k]).repeat(3); }
 document.querySelectorAll("[data-add]").forEach(b => b.onclick = () =>

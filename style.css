@@ -44,6 +44,18 @@ input {
   color: inherit
 }
 
+/* ===== Icônes SVG (prennent la couleur du texte) ===== */
+.ic {
+  width: 1.25em;
+  height: 1.25em;
+  flex: none;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round
+}
+
 .layout {
   display: grid;
   grid-template-columns: 260px 1fr;
@@ -58,7 +70,7 @@ input {
   overflow-y: auto;
   background: var(--or);
   padding: 32px 20px;
-  color: #fff6e5
+  color: #fff
 }
 
 .brand {
@@ -95,13 +107,16 @@ input {
   gap: 8px
 }
 
+/* Liens : texte + icône blancs ; page active : fond blanc + texte + icône noirs */
 .side nav a {
-  display: block;
+  display: flex;
+  align-items: center;
+  gap: 12px;
   padding: 13px 16px;
   border-radius: 14px;
   font-weight: 500;
   font-size: 17px;
-  color: var(--red);
+  color: #fff;
   white-space: nowrap
 }
 
@@ -110,8 +125,8 @@ input {
 }
 
 .side nav a.active {
-  background: var(--bg);
-  color: var(--or2)
+  background: #fff;
+  color: #111
 }
 
 main {
@@ -141,6 +156,10 @@ main {
   width: 100%
 }
 
+.search .ic {
+  color: var(--or2)
+}
+
 .search input {
   flex: 1;
   border: 0;
@@ -165,8 +184,10 @@ main {
 }
 
 .chip {
-  font: 400 14px "Abril Fatface", serif;
-  letter-spacing: 1px;
+  font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+  font-size: 14px;
+  font-weight: 500;
+  letter-spacing: 0;
   background: var(--or);
   color: #3a2300;
   border: 0;
@@ -177,6 +198,7 @@ main {
 
 .chip:hover,
 .chip.sel {
+  font-family: -apple-system, BlinkMacSystemFont, sans-serif;
   background: var(--or2);
   color: #fff
 }
@@ -326,8 +348,15 @@ input:focus-visible {
 }
 
 .meta {
+  display: flex;
+  align-items: center;
+  gap: 10px;
   font-size: 17px;
   margin: 12px 0
+}
+
+.meta .ic {
+  color: var(--or)
 }
 
 hr {
@@ -458,6 +487,7 @@ hr {
 .menu li {
   display: flex;
   justify-content: space-between;
+  align-items: center;
   padding: 18px 0;
   border-bottom: 1px solid var(--line);
   cursor: pointer
@@ -469,6 +499,15 @@ hr {
 
 .menu .out {
   color: #e11d1d
+}
+
+.menu .mi {
+  gap: 14px
+}
+
+.menu .mi .ic {
+  width: 1.3em;
+  height: 1.3em
 }
 
 /* Ajout */
@@ -503,8 +542,10 @@ hr {
   text-align: center
 }
 
-.photo span {
-  font-size: 42px
+.photo .ic {
+  width: 44px;
+  height: 44px;
+  color: var(--or)
 }
 
 .photo b {
@@ -574,6 +615,10 @@ hr {
   align-items: center;
   gap: 12px;
   margin-top: 12px
+}
+
+.line .ic {
+  color: var(--or)
 }
 
 .line input {
@@ -773,7 +818,7 @@ body.night .brand-icon {
 }
 
 body.night .side nav a {
-  color: var(--mu)
+  color: #f5ead9
 }
 
 body.night .side nav a:hover {
@@ -781,8 +826,8 @@ body.night .side nav a:hover {
 }
 
 body.night .side nav a.active {
-  background: var(--card);
-  color: var(--or)
+  background: #fff;
+  color: #111
 }
 
 body.night .thumb {
@@ -1112,7 +1157,6 @@ html[lang="ar"] body {
   font-family: Cairo, Inter, sans-serif
 }
 
-html[lang="ar"] .chip,
 html[lang="ar"] .rtitle,
 html[lang="ar"] .hd {
   font-family: Cairo, sans-serif;
@@ -1131,4 +1175,19 @@ html[dir="rtl"] .chev {
 
 html[dir="rtl"] .side {
   border-right: 0
+}
+
+/* ===== Emojis restants : même font-family partout ===== */
+
+.thumb,
+.hero,
+.avatar {
+  font-family: -apple-system, BlinkMacSystemFont, sans-serif
+}
+.chip,
+.chip.sel{
+    font-family: math;
+    font-weight: bold;
+    font-size: larger;
+
 }
